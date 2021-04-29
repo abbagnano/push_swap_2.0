@@ -13,9 +13,11 @@ typedef struct  s_list
 
 typedef struct s_data
 {
-	t_list	stack_a;
-	t_list	stack_b;
-	int		ac;
+	t_list	**head;
+//	t_list	*stack_a;
+//	t_list	*stack_b;
+	t_list	*tail;
+	int		len;
 }				t_data;
 
 #endif
