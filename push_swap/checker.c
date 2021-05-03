@@ -5,7 +5,7 @@ int		ft_strlen(char *str)
 	int x;
 
 	x = 0;
-	while (str[x])
+	while (str && str[x])
 		x++;
 	return (x);
 }
@@ -35,9 +35,33 @@ void    ft_free_stack(t_list **stack, t_data *data)
 
 void	ft_exit(char *str, t_data *data)
 {
+	t_list *tmp;
+
+	
+//	tmp = tail;
 	ft_write(str);
 //	ft_free_stack(&data->stack_a, data);
-    (void)data;
+//  (void)data;
+	while (*data->head)
+	{
+	//	printf("freeeing: %d\n", (*data->head)->num);
+		tmp = *data->head;
+		*data->head = (*data->head)->next;
+		free(tmp);	
+	}
+	free(data->head);
+	while (*data->b_head)
+	{
+	//	printf("freeeing: %d\n", (*data->head)->num);
+		tmp = *data->b_head;
+		*data->b_head = (*data->b_head)->next;
+		free(tmp);	
+	}
+	free(data->b_head);
+									printf("exiting.. check leaks!!\n");
+									char buf[10];			//	per i leaks!!
+									read(0, &buf, 9);
+	
 	exit (0);
 //	free(data->stack_a);
 //	free(*data->stack_a.next);
@@ -82,11 +106,18 @@ int	ft_strcmp(char *s1, char *s2)
 //	printf("cmp_int: '%d' - '%d'\n", s1[x] , s2[x]);
 	return (s1[x] - s2[x]);
 }
+
 void	ft_check_num(int tot, t_data *data)
 {
-	(void)tot;
-	(void)data;
-//	if (tot )
+	t_list *tmp;
+
+	tmp = *data->head;
+	while (tmp)
+	{
+		if (tot == tmp->num)
+			ft_exit("Error: duplicated nums\n", data);
+		tmp = tmp->next;
+	}
 }
 
 int	ft_check_str(char *str, t_data *data, int neg)
@@ -117,9 +148,9 @@ int	ft_check_str(char *str, t_data *data, int neg)
 	return (len);
 }
 
-void	ft_add_num(int tot, t_data *data)
+void	ft_add_num(int tot, t_list **head, t_data *data)
 {
-//	ft_check_num(tot, data);
+	ft_check_num(tot, data);
 //	printf("\n\tft_add_num - start\n");
 	//while (data->stack_a != NULL)
 	//	data->stack_a = data->stack_a->next;
@@ -133,9 +164,9 @@ void	ft_add_num(int tot, t_data *data)
 //		new = *data->tail;
 	new = (t_list *)malloc(sizeof(t_list) * 1);
 	
-	if (*data->head == NULL)
+	if (*head == NULL)
 	{
-		*data->head = new;
+		*head = new;
 		data->tail = new;
 	}
 	else 
@@ -198,12 +229,27 @@ void	ft_split_str(char *str, t_data *data)
 			tot *= -1;
 //		printf("neg: %d\n", tot);
 		if (len)
-			ft_add_num(tot, data);
+			ft_add_num(tot, data->head, data);
 		//ft_add_data(data, tot);
 	}
 	return ;
 }
-
+/*
+void    ft_print_ops(t_ops **head)
+{
+	printf("\n\tft_print_ops - start\n");
+	t_ops *stack;
+	
+//printf("print head: %p\n", head);
+	stack = *head;
+//	printf("head[0]= %d\n", (*head)->num);
+	 while (stack != NULL)
+	{
+		printf("stack[]= %s\n", stack->op);
+		stack = stack->next;
+	}
+}
+*/
 void    ft_print_stack(t_list **head)
 {
 	printf("\n\tft_print_stack - start\n");
@@ -240,12 +286,175 @@ void    ft_to_stack(char **av, int ac, t_data *data)
 	stack = NULL;
 */	
 }
+/*
+void	ft_buf_to_ops(char *buf, t_data *data)
+{
+	printf("\tft_buf_to_ops\n");
+	return;
+	int		x;
+	int		y;
+	t_ops	*tmp;
+
+	x = 0;
+	y = 0;
+	
+	//tmp->op = (char *)malloc(sizeof(char) * (ft_strlen(buf) + 1));
+	tmp = *data->ops;
+	while (tmp)
+		tmp = tmp->next;
+	tmp->op = buf;
+	tmp->next = NULL;
+//	while ()
+//	printf("x: %d\n", x);
+//	printf("x+y: %d\n", x + y);
+	
+	//return (tmp);
+
+}
+*/
+char	*ft_buf_to_txt(char *buf, char *txt)
+{
+	int		x;
+	int		y;
+	char	*tmp;
+
+	x = 0;
+	y = 0;
+	tmp = (char *)malloc(sizeof(char) * (ft_strlen(buf) + ft_strlen(txt) + 1));
+	while (txt && txt[x])
+	{
+		tmp[x] = txt[x];
+		x++;
+	}
+//	printf("x: %d\n", x);
+//	printf("x+y: %d\n", x + y);
+	while (buf && buf[y])
+	{
+		tmp[x + y] = buf[y];
+		y++;
+	}
+	tmp[x + y] = '\0';
+//	printf("tmp: %s\n", tmp);
+	free(txt);
+	return (tmp);
+
+}
+
+void	ft_check_buf(char *buf, int r, t_data *data)
+{
+	if (buf[r - 1] != '\n')
+		ft_exit("Error1: wrong instruction!\n", data);
+//	if (r > 1)
+//		buf[r - 1] = '\0';
+//	printf("%d\n", ft_strcmp("sa", buf));
+	if (ft_strcmp("sa", buf) != 0 && ft_strcmp("sb", buf) != 0 && ft_strcmp("ss", buf) != 0
+		&& ft_strcmp("pa", buf) != 0 && ft_strcmp("pb", buf) != 0
+		&& ft_strcmp("ra", buf) != 0 && ft_strcmp("rb", buf) != 0 && ft_strcmp("rr", buf) != 0
+		&& ft_strcmp("rra", buf) != 0 && ft_strcmp("rrb", buf) != 0 && ft_strcmp("rrr", buf) != 0)
+		ft_exit("Error2: wrong instruction!\n", data);
+		//printf("Error2: wrong instruction!\n");
+
+}
+
+void	ft_read_instr(t_data *data)
+{
+	char	*buf;
+	int		r;
+//	char *txt;
+//	data->ops = (char **)malloc(sizeof(char *) * 1);
+	buf = (char *)malloc(sizeof(char) * 5);
+	buf[4] = '\0';
+	r = 1;
+	while (r)
+	{
+		r = read(0, buf, 4);
+	//	printf("r:%d\n", r);
+		if (buf[0] == '\n')
+			break ;
+		ft_check_buf(buf, r, data);
+		
+	//	printf("buf:%s\n", buf);
+	//	printf("%d\n", ft_strcmp("\n", buf));
+	//	if (ft_strcmp("\n", buf) == 10)
+	//		break ;
+		data->txt = ft_buf_to_txt(buf, data->txt);
+	//	ft_buf_to_ops(buf, data);
+		buf[0] = '\0';
+	}
+	printf("-%s-\n", data->txt);
+	free(buf);
+}
+
+void	ft_move_stack(char *op, t_data *data)
+{
+	if (ft_strcmp("sa", op) == 0)
+		ft_swap(data->head);
+	else if (ft_strcmp("sb", op) == 0)
+		ft_swap(data->b_head);
+	else if (ft_strcmp("ss", op) == 0)
+	{
+		ft_swap(data->head);
+		ft_swap(data->b_head);
+	}
+	else if (ft_strcmp("pa", op) == 0 && (*data->b_head))
+		ft_push(data->b_head, data->head); //ft_push((*data->b_head)->num, data->head);
+	else if (ft_strcmp("pb", op) == 0 && (*data->head))
+		ft_push(data->head, data->b_head); //ft_push((*data->head)->num, data->b_head);
+	else if (ft_strcmp("ra", op) == 0)
+		ft_rotate(data->head, data->tail, data);
+	else if (ft_strcmp("rb", op) == 0)
+		ft_rotate(data->b_head, data->b_tail, data);
+	else if (ft_strcmp("rr", op) == 0)
+	{
+		ft_rotate(data->head, data->tail, data);
+		ft_rotate(data->b_head, data->b_tail, data);
+	}
+//	else if (ft_strcmp("rra", op) == 0)
+//	else if (ft_strcmp("rrb", op) == 0)
+//	else if (ft_strcmp("rrr", op) == 0)
+
+}
+
+void	ft_make_instr(t_data *data)
+{
+	char	*op;
+	int		x;
+	int		y;
+
+	y = 0;
+	if (!data->txt)
+		return ;
+	op = (char *)malloc(sizeof(char) * 4);
+	op[3] = '\0';
+	while (data->txt[y])
+	{
+		x = -1;
+		while (op[++x])
+			op[x] = '\0';
+		x = 0;
+	//	op[x] = '\0';
+	//	op = NULL;
+		while (data->txt[y] != '\n')
+		{
+			op[x] = data->txt[y];
+			x++;
+			y++;
+		}
+		op[x] = '\0';
+		y++;
+		if (x)
+			ft_move_stack(op, data);
+			//printf("%s\n", op);
+		
+	}
+	free(op);
+}
 
 int main(int ac, char **av)
 {
 	t_data	data;
 
-	data.len = ac - 1;
+//	data.len = ac - 1;
 	
 	if (ac == 1)
 	{
@@ -253,16 +462,28 @@ int main(int ac, char **av)
 		return (0);
 	}
 	data.head = (t_list **)malloc(sizeof(t_list *) * 1);
+	data.b_head = (t_list **)malloc(sizeof(t_list *) * 1);
+//	data.ops = (t_ops **)malloc(sizeof(t_ops *) * 1);
 //	data.tail = (t_list **)malloc(sizeof(t_list *) * 1);
 	*data.head = NULL;
-	data.tail = NULL;
+	*data.b_head = NULL;
+//	*data.ops = NULL;
+//	data.tail = NULL;
 
 //	printf("main head: %p\n", data.head);
 //	data.stack_a = *data.head;
 	ft_to_stack(av, ac, &data);
  //   ft_print_stack(data.stack_a);
 	ft_print_stack(data.head);
+	ft_print_stack(data.b_head);
+	
+	ft_read_instr(&data);
+//printf("ops: %s\n", data.txt);
+		
+	ft_make_instr(&data);
+	
+	ft_print_stack(data.b_head);
+	ft_print_stack(data.head);
 	ft_exit("", &data);
-//		char buf[10];
-//	read(0, &buf, 9);
+	
 }
