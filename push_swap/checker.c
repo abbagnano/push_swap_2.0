@@ -38,6 +38,7 @@ void	ft_exit(char *str, t_data *data)
 	ft_write(str);
 //	ft_free_stack(&data->stack_a, data);
     (void)data;
+	exit (0);
 //	free(data->stack_a);
 //	free(*data->stack_a.next);
 //	free(*data->stack_b);
@@ -66,14 +67,65 @@ void	ft_add_data(t_data *data, int tot)
 //	printf("\tft_add_data - end\n");
 }
 */
+int	ft_strcmp(char *s1, char *s2)
+{
+	int x;
+
+	x = 0;
+	while (s1 && s2 && s1[x] && s2[x] && s1[x] == s2[x])
+	{
+		x++;
+		if (!s1[x] && !(s2[x] >= '0' && s2[x] <= '9'))
+			return (0);
+	}
+//	printf("cmp_char: '%c' - '%c'\n", s1[x] , s2[x]);
+//	printf("cmp_int: '%d' - '%d'\n", s1[x] , s2[x]);
+	return (s1[x] - s2[x]);
+}
+void	ft_check_num(int tot, t_data *data)
+{
+	(void)tot;
+	(void)data;
+//	if (tot )
+}
+
+int	ft_check_str(char *str, t_data *data, int neg)
+{
+	int	len;
+
+	len = 0;
+	while (str[len] >= '0' && str[len] <= '9')
+		len++;
+//	printf("len :%d\t", len);
+//	printf("str: %s\n", str);
+//	printf("cmp_min(.2147483647.,str): %d\n", ft_strcmp("2147483647", str));
+	if (len > 10)
+		ft_exit("Error: out of integer range!!\n", data);
+	else if (len < 10)
+		return (len);
+	if (neg)
+	{
+		if (ft_strcmp("2147483648", str) == 0 || ft_strcmp("2147483647", str) >= 0)
+			return (len);
+		ft_exit("Error: num < -2147483648\n\n", data);
+	}
+	else
+	{
+		if (ft_strcmp("2147483647", str) < 0)
+			ft_exit("Error: num > 2147483647\n\n", data);
+	}
+	return (len);
+}
+
 void	ft_add_num(int tot, t_data *data)
 {
-	printf("\n\tft_add_num - start\n");
+//	ft_check_num(tot, data);
+//	printf("\n\tft_add_num - start\n");
 	//while (data->stack_a != NULL)
 	//	data->stack_a = data->stack_a->next;
-	printf("pre head: %p\t", data->head);
-	printf("pre *head: %p\n", *data->head);
-	printf("pre tail: %p\t", data->tail);
+//	printf("pre head: %p\t", data->head);
+//	printf("pre *head: %p\n", *data->head);
+//	printf("pre tail: %p\t", data->tail);
 //	printf("pre *tail: %p\n", *data->tail);
 	t_list *new;
 
@@ -85,7 +137,6 @@ void	ft_add_num(int tot, t_data *data)
 	{
 		*data->head = new;
 		data->tail = new;
-	//	data->tail = &new->next;
 	}
 	else 
 	{
@@ -94,7 +145,7 @@ void	ft_add_num(int tot, t_data *data)
 	}
 
 	new->num = tot;
-		printf("\nstack[]= %d\n", new->num);
+//		printf("\nstack[]= %d\n", new->num);
 	new->next = NULL;
 
 //	data->tail = new->next;
@@ -110,8 +161,8 @@ void	ft_add_num(int tot, t_data *data)
 //	*data->tail->next = new;
 //	*data->tail = new->next;
 
-	printf("\tpost tail: %p\n", data->tail);
-	printf("\tpost head: %p\n", data->head);
+//	printf("\tpost tail: %p\n", data->tail);
+//	printf("\tpost head: %p\n", data->head);
 	//data->head = &stack;
 //	printf("\tft_add_data - end\n");
 }
@@ -120,22 +171,32 @@ void	ft_split_str(char *str, t_data *data)
 {
 	int	tot;
 	int	neg;
+	int	len;
 
+//	printf("str: %s\t", str);
+	
 	while (*str)
 	{
 		neg = 0;
-		tot = 0;	
+		tot = 0;
+		len = 0;	
 		while (*str == '\t' || *str == '\n' || *str == '\v' || *str == '\f' || *str == '\r' || *str == ' ')
 			str++;
 		if (*str == '-' && *str++)
 			neg++;
-		if (*str < '0' || *str > '9')
+		if ((*str < '0' || *str > '9') && *str != '\0')
 			ft_exit("Error\n", data);
+		len = ft_check_str(str, data, neg);
 		while (*str >= '0' && *str <= '9')
 			tot = tot * 10 + *str++ - 48;
+		if (*str != '\0' && !(*str == '\t' || *str == '\n' || *str == '\v' || *str == '\f' || *str == '\r' || *str == ' '))
+			ft_exit("Error\n", data);
+//		printf("pos: %d\t", tot);
 		if (neg)
 			tot *= -1;
-		ft_add_num(tot, data);
+//		printf("neg: %d\n", tot);
+		if (len)
+			ft_add_num(tot, data);
 		//ft_add_data(data, tot);
 	}
 	return ;
