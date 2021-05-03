@@ -184,6 +184,8 @@ void	ft_split_str(char *str, t_data *data)
 			str++;
 		if (*str == '-' && *str++)
 			neg++;
+		else if (*str == '+')
+			str++;
 		if ((*str < '0' || *str > '9') && *str != '\0')
 			ft_exit("Error\n", data);
 		len = ft_check_str(str, data, neg);
