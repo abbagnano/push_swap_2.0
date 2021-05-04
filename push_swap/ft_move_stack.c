@@ -2,12 +2,12 @@
 
 void	ft_swap(t_list **head) //t_data *data)
 {
-	printf("\tft_swapping\n");
+	//printf("\tft_swapping\n");
 	int	tmp;
 
 	if (!(head) || !(*head) || !((*head)->next))
 	{
-		printf("qwe\n");
+		//printf("qwe\n");
 		return ;
 	}
 	tmp = (*head)->num;
@@ -17,7 +17,7 @@ void	ft_swap(t_list **head) //t_data *data)
 
 void	ft_push(t_list **topush, t_list **head)
 {
-	printf("\tft_pushing\n");
+	//printf("\tft_pushing\n");
 	t_list *new;
 
 	new = (t_list *)malloc(sizeof(t_list) * 1);
@@ -31,14 +31,14 @@ void	ft_push(t_list **topush, t_list **head)
 
 void	ft_rotate(t_list **head)
 {
-	printf("\tft_rotating\n");
+	//printf("\tft_rotating\n");
 	t_list	*tmp;
 	t_list	*new;
 	int		num;
 
 	if (!(head) || !(*head))// || !((*head)->next))
 	{
-		printf("qwe\n");
+		//printf("qwe\n");
 		return ;
 	}
 	tmp = *head;
@@ -70,14 +70,14 @@ void	ft_rotate(t_list **head)
 
 void	ft_rev_rot(t_list **head)
 {
-	printf("\tft_rev_rotating\n");
+	//printf("\tft_rev_rotating\n");
 	t_list	*tmp;
 	t_list	*new;
 	int		num;
 
 	if (!(head) || !(*head))// || !((*head)->next))
 	{
-		printf("qwe\n");
+		//printf("qwe\n");
 		return ;
 	}
 	tmp = *head;

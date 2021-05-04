@@ -31,10 +31,21 @@ typedef struct s_data
 //	t_list	*tail;
 	t_list	**b_head;
 //	t_list	*b_tail;
-//	t_ops	**ops;
 	char	*txt;	
 //	int		len;
+//	int		min;
+//	int		max;
+	t_list	*lowest;
+	t_list	*maxest;
+	t_list	*start;
 }				t_data;
+
+typedef struct  s_flags
+{
+	int	sa;
+	int	ra;
+	int	pa;
+}               t_flags;
 
 void	ft_swap(t_list **head);
 void	ft_push(t_list **topush, t_list **head);
@@ -43,6 +54,10 @@ void	ft_rev_rot(t_list **head);
 
 void	ft_add_num(long int tot, t_list **head, t_data *data);
 
+void	ft_get_range(t_data *data);
+void	ft_push_swap(t_data *data);
+
+int		ft_check_swap(t_data *data);
 
 #endif
 
