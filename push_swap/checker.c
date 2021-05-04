@@ -107,11 +107,13 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[x] - s2[x]);
 }
 
-void	ft_check_num(int tot, t_data *data)
+void	ft_check_num(long int tot, t_data *data)
 {
 	t_list *tmp;
 
 	tmp = *data->head;
+	if (tot > 2147483647 || tot < -2147483648)
+		ft_exit("Error: out of INT range\n", data);
 	while (tmp)
 	{
 		if (tot == tmp->num)
@@ -119,7 +121,7 @@ void	ft_check_num(int tot, t_data *data)
 		tmp = tmp->next;
 	}
 }
-
+/*
 int	ft_check_str(char *str, t_data *data, int neg)
 {
 	int	len;
@@ -147,8 +149,8 @@ int	ft_check_str(char *str, t_data *data, int neg)
 	}
 	return (len);
 }
-
-void	ft_add_num(int tot, t_list **head, t_data *data)
+*/
+void	ft_add_num(long int tot, t_list **head, t_data *data)
 {
 	ft_check_num(tot, data);
 //	printf("\n\tft_add_num - start\n");
@@ -159,25 +161,45 @@ void	ft_add_num(int tot, t_list **head, t_data *data)
 //	printf("pre tail: %p\t", data->tail);
 //	printf("pre *tail: %p\n", *data->tail);
 	t_list *new;
-
+	t_list *tmp;
+	
 //	if (data->tail != NULL)
 //		new = *data->tail;
 	new = (t_list *)malloc(sizeof(t_list) * 1);
-	
-	if (*head == NULL)
-	{
-		*head = new;
-		data->tail = new;
-	}
-	else 
-	{
-		data->tail->next = new;
-		data->tail = new;
-	}
-
 	new->num = tot;
 //		printf("\nstack[]= %d\n", new->num);
 	new->next = NULL;
+	if (*head == NULL)
+		*head = new;
+	else 
+	{
+		tmp = *head;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+/*	
+	if (*head == NULL)
+	{
+		*head = new;
+	//	data->tail = new;
+	}
+	else 
+	{
+		tmp = *head;
+		while (tmp != NULL)
+		{
+			tmp = tmp->next;
+		}
+		tmp = new;
+	}
+	//	data->tail->next = new;
+	//	data->tail = new;
+//	}
+*/
+//	new->num = tot;
+//		printf("\nstack[]= %d\n", new->num);
+//	new->next = NULL;
 
 //	data->tail = new->next;
 	
@@ -200,9 +222,9 @@ void	ft_add_num(int tot, t_list **head, t_data *data)
 
 void	ft_split_str(char *str, t_data *data)
 {
-	int	tot;
+	long int	tot;
 	int	neg;
-	int	len;
+//	int	len;
 
 //	printf("str: %s\t", str);
 	
@@ -210,7 +232,7 @@ void	ft_split_str(char *str, t_data *data)
 	{
 		neg = 0;
 		tot = 0;
-		len = 0;	
+	//	len = 0;	
 		while (*str == '\t' || *str == '\n' || *str == '\v' || *str == '\f' || *str == '\r' || *str == ' ')
 			str++;
 		if (*str == '-' && *str++)
@@ -219,7 +241,7 @@ void	ft_split_str(char *str, t_data *data)
 			str++;
 		if ((*str < '0' || *str > '9') && *str != '\0')
 			ft_exit("Error\n", data);
-		len = ft_check_str(str, data, neg);
+	//	len = ft_check_str(str, data, neg);
 		while (*str >= '0' && *str <= '9')
 			tot = tot * 10 + *str++ - 48;
 		if (*str != '\0' && !(*str == '\t' || *str == '\n' || *str == '\v' || *str == '\f' || *str == '\r' || *str == ' '))
@@ -227,9 +249,10 @@ void	ft_split_str(char *str, t_data *data)
 //		printf("pos: %d\t", tot);
 		if (neg)
 			tot *= -1;
-//		printf("neg: %d\n", tot);
-		if (len)
-			ft_add_num(tot, data->head, data);
+	//	printf("neg: %d\n", tot);
+	//	if (len)
+	//	if ()
+		ft_add_num(tot, data->head, data);
 		//ft_add_data(data, tot);
 	}
 	return ;
@@ -387,32 +410,48 @@ void	ft_read_instr(t_data *data)
 
 void	ft_move_stack(char *op, t_data *data)
 {
-	if (ft_strcmp("sa", op) == 0)
-		ft_swap(data->head);
-	else if (ft_strcmp("sb", op) == 0)
-		ft_swap(data->b_head);
-	else if (ft_strcmp("ss", op) == 0)
-	{
-		ft_swap(data->head);
-		ft_swap(data->b_head);
-	}
-	else if (ft_strcmp("pa", op) == 0 && (*data->b_head))
-		ft_push(data->b_head, data->head); //ft_push((*data->b_head)->num, data->head);
-	else if (ft_strcmp("pb", op) == 0 && (*data->head))
-		ft_push(data->head, data->b_head); //ft_push((*data->head)->num, data->b_head);
-	else if (ft_strcmp("ra", op) == 0)
-		ft_rotate(data->head, data->tail, data);
-	else if (ft_strcmp("rb", op) == 0)
-		ft_rotate(data->b_head, data->b_tail, data);
-	else if (ft_strcmp("rr", op) == 0)
-	{
-		ft_rotate(data->head, data->tail, data);
-		ft_rotate(data->b_head, data->b_tail, data);
-	}
-//	else if (ft_strcmp("rra", op) == 0)
-//	else if (ft_strcmp("rrb", op) == 0)
-//	else if (ft_strcmp("rrr", op) == 0)
+//	printf("cmp-rra : %d\n", ft_strcmp("rra", op));
+//	printf("cmp-ra : %d\n", ft_strcmp("ra", op));
+	int	len;
 
+	len = ft_strlen(op);
+	if (len == 2)
+	{
+		if (ft_strcmp("sa", op) == 0)
+			ft_swap(data->head);
+		else if (ft_strcmp("sb", op) == 0)
+			ft_swap(data->b_head);
+		else if (ft_strcmp("ss", op) == 0)
+		{
+			ft_swap(data->head);
+			ft_swap(data->b_head);
+		}
+		else if (ft_strcmp("pa", op) == 0 && (*data->b_head))
+			ft_push(data->b_head, data->head); //ft_push((*data->b_head)->num, data->head);
+		else if (ft_strcmp("pb", op) == 0 && (*data->head))
+			ft_push(data->head, data->b_head); //ft_push((*data->head)->num, data->b_head);
+		else if (ft_strcmp("ra", op) == 0)
+			ft_rotate(data->head);
+		else if (ft_strcmp("rb", op) == 0)
+			ft_rotate(data->b_head);
+		else if (ft_strcmp("rr", op) == 0)
+		{
+			ft_rotate(data->head);
+			ft_rotate(data->b_head);
+		}
+	}
+	else
+	{
+		if (ft_strcmp("rra", op) == 0)
+			ft_rev_rot(data->head);
+		else if (ft_strcmp("rrb", op) == 0)
+			ft_rev_rot(data->b_head);
+		else if (ft_strcmp("rrr", op) == 0)
+		{
+			ft_rev_rot(data->head);
+			ft_rev_rot(data->b_head);
+		}
+	}
 }
 
 void	ft_make_instr(t_data *data)
@@ -450,6 +489,24 @@ void	ft_make_instr(t_data *data)
 	free(op);
 }
 
+void	ft_check_sort(t_data *data)
+{
+	int		min;
+	t_list	*tmp;
+
+	
+	tmp = *data->head;
+	min = tmp->num;
+	while (tmp != NULL)
+	{
+		if (tmp->num < min)
+			ft_exit("KO!\n", data) ;
+		min = tmp->num;
+		tmp = tmp->next;
+	}
+	ft_exit("OK!\n", data) ;
+}
+
 int main(int ac, char **av)
 {
 	t_data	data;
@@ -481,9 +538,11 @@ int main(int ac, char **av)
 //printf("ops: %s\n", data.txt);
 		
 	ft_make_instr(&data);
-	
 	ft_print_stack(data.b_head);
 	ft_print_stack(data.head);
+	ft_check_sort(&data);
+	
+	
 	ft_exit("", &data);
 	
 }

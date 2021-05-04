@@ -28,9 +28,9 @@ typedef struct s_data
 {
 	t_list	**head;
 //	t_list	*stack_a;
-	t_list	*tail;
+//	t_list	*tail;
 	t_list	**b_head;
-	t_list	*b_tail;
+//	t_list	*b_tail;
 //	t_ops	**ops;
 	char	*txt;	
 //	int		len;
@@ -38,10 +38,11 @@ typedef struct s_data
 
 void	ft_swap(t_list **head);
 void	ft_push(t_list **topush, t_list **head);
-//void	ft_push(int num, t_list **head);
-void	ft_rotate(t_list **head, t_list *tail, t_data *data);
+void	ft_rotate(t_list **head);
+void	ft_rev_rot(t_list **head);
 
-void	ft_add_num(int tot, t_list **head, t_data *data);
+void	ft_add_num(long int tot, t_list **head, t_data *data);
+
 
 #endif
 
