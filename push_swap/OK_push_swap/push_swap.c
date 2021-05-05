@@ -304,6 +304,7 @@ int main(int ac, char **av)
 //	data.stack_a = *data.head;
 	ft_to_stack(av, ac, &data);
 	ft_print_stack(data.head);
+	ft_print_stack(data.b_head);
  //   ft_print_stack(data.stack_a);
 
 //	ft_print_stack(data.head);
@@ -313,6 +314,7 @@ int main(int ac, char **av)
 //	ft_print_stack(data.head);
 	ft_push_swap(&data);
 	ft_print_stack(data.head);
+	ft_print_stack(data.b_head);
 //	ft_print_stack(data.head);
 	ft_exit("", &data);
 }

@@ -64,8 +64,13 @@ void    ft_print_stack(t_list **head);
 #endif
 
 
-
 /*
+	checker:
+	clear && gcc  ft_move_stack.c checker.c && ./a.out 2 1 3 4
+
+	push swap:
+	clear && gcc  ft_move_stack.c ft_try_swap.c push_swap.c && ./a.out 2 1 3 4
+
 
 clear && gcc -Wall -Wextra *.c -fsanitize=address -g3 && ./a.out  66 -55555 44 88 99 6
 

@@ -388,7 +388,7 @@ void	ft_read_instr(t_data *data)
 	buf = (char *)malloc(sizeof(char) * 5);
 	buf[4] = '\0';
 	r = 1;
-	while (r)
+	while (r > 0)
 	{
 		r = read(0, buf, 4);
 	//	printf("r:%d\n", r);

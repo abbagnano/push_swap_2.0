@@ -2,7 +2,7 @@
 
 void	ft_swap(t_list **head) //t_data *data)
 {
-	printf("\tft_swapping\n");
+//	printf("\tft_swapping\n");
 //	int	tmp;
 t_list	*old_first;
 t_list	*old_second;
@@ -13,9 +13,9 @@ t_list	*old_second;
 		return ;
 	}
 	old_first = *head;
-	old_first->next = (*head)->next->next;
+//	old_first->next = (*head)->next->next;
 	old_second = (*head)->next;
-	
+	old_first->next = old_second->next;	
 	old_second->next = old_first;//*head;
 
 
@@ -35,8 +35,17 @@ t_list	*old_second;
 void	ft_push(t_list **topush, t_list **head)
 {
 	//printf("\tft_pushing\n");
-	t_list *new;
+	//t_list *new;
+	t_list *nodetopush;
 
+	nodetopush = *topush;
+	*topush = (*topush)->next;
+	nodetopush->next = *head;
+	*head = nodetopush;
+
+
+
+/*
 	new = (t_list *)malloc(sizeof(t_list) * 1);
 	new->next = *head;
 	new->num = (*topush)->num;
@@ -44,7 +53,7 @@ void	ft_push(t_list **topush, t_list **head)
 	new = *topush;
 	(*topush) = (*topush)->next;
 	free(new);
-	ft_print_stack(head);
+	ft_print_stack(head);*/
 }
 
 void	ft_rotate(t_list **head)
@@ -68,14 +77,14 @@ void	ft_rotate(t_list **head)
 	while (last->next->next)
 		last = last->next;
 	tmp = last->next;
-	printf("\t\tnewnum: %d\n", tmp->num);
+//	printf("\t\tnewnum: %d\n", tmp->num);
 	//tmp->next = *head;
 	last->next = NULL;
 	last = *head;
 	tmp->next = last;
 	*head = tmp;
 	//(*head)->next = last;
-	printf("\t\tnewnum: %d\n", (*head)->num);
+//	printf("\t\tnewnum: %d\n", (*head)->num);
 
 //	ft_print_stack(head);
 //	last->next = NULL;
@@ -125,13 +134,33 @@ void	ft_rotate(t_list **head)
 //		tail->next = new;
 //		tail = new;
 //	}
-ft_print_stack(head);
+//ft_print_stack(head);
 }
 
 void	ft_rev_rot(t_list **head)
 {
 	//printf("\tft_rev_rotating\n");
+	t_list	*last;
 	t_list	*tmp;
+
+	if (!(head) || !(*head))// || !((*head)->next))
+	{
+		//printf("qwe\n");
+		return ;
+	}
+	last = *head;
+	while (last->next->next)
+		last = last->next;
+//	printf("last: %d\n", last->num);
+
+	tmp = last->next;
+	last->next = NULL;
+	tmp->next = *head;
+	*head = tmp; 
+
+
+
+/*	t_list	*tmp;
 	t_list	*new;
 	int		num;
 
@@ -153,5 +182,5 @@ void	ft_rev_rot(t_list **head)
 	new->num = num;
 	new->next = *head;
 	*head = new;
-
+*/
 }

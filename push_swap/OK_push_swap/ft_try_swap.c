@@ -45,6 +45,7 @@ int		ft_single(t_data *data)
 
 	
 	ops = 0;
+//	ft_swap(data->head);
 //	tmp_head = *data->head;
 //	tmp_head = data->start;
 //	printf("\n\tSTART\n");
@@ -52,33 +53,44 @@ int		ft_single(t_data *data)
 //	ft_print_stack(&tmp_head);
 //	ft_rotate(&tmp_head);
 //	ft_rotate(data->head);
+//	ft_push(data->head, data->b_head);
+//	ft_rev_rot(data->head);
 
 	
 	while (!(ft_check_swap(data->head, data)))
 	{
 	//	printf("\n\tFINE\n");
 		//tmp_head = data->start;
-		while ((*data->head)->next && (*data->head)->num < (*data->head)->next->num)
+		while ((*data->head)/*->next*/ && (*data->head)->num < (*data->head)->next->num)
 		{
+			printf("\n\tloop 1 finche num < next->num\n");
+		//	if ((*data->head)->next->num == data->lowest->num)
+		//		break ;
 			ft_rotate(data->head);//data->head = data->head->next;
 			ops++;
 		}
-		if ((*data->head)->num > (*data->head)->next->num)
+		ft_print_stack(data->head);
+		if ((*data->head)->num > (*data->head)->next->num && /*(*data->head)->next->num != data->lowest->num && */(*data->head)->num != data->maxest->num)
 		{
+			printf("\n\tse num > next->num fa swap\n");
+		//	if ((*data->head)->next->num == data->lowest->num)
+			//	break ;
 			ft_swap(data->head);
 			ops++;
 		}
-		printf("data-minest: %d\n", data->lowest->num);
+		ft_print_stack(data->head);
+	//	printf("data-minest: %d\n", data->lowest->num);
 		while ((*data->head)->num != /*data->start->num) */ data->lowest->num)
 		{
-			printf("headnum: %d\n", (*data->head)->num );
-			printf("\n\tFINE\n");
+			printf("\n\truoto la lista finche non mmetto il lowest alla head\n");
+	//		printf("headnum: %d\n", (*data->head)->num );
+	//		printf("\n\tFINE\n");
 			ft_rotate(data->head);
 			ops++;
 		}
 		ft_print_stack(data->head);
 	}
-	
+
 //	ft_swap(&tmp->next);
 /*	while (tmp && !(ft_check_swap(&tmp, data)))
 	{
