@@ -37,8 +37,9 @@ typedef struct s_data
 //	int		max;
 	t_list	*lowest;
 	t_list	*maxest;
-	t_list	*start;
+//	t_list	*start;
 	t_list	*tail;
+	t_list	**backup;
 }				t_data;
 
 typedef struct  s_flags

@@ -58,9 +58,11 @@ void	ft_exit(char *str, t_data *data)
 		free(tmp);	
 	}
 	free(data->b_head);
-//									printf("exiting.. check leaks!!\n");
-//									char buf[10];			//	per i leaks!!
-//									read(0, &buf, 9);
+	if (data->backup)
+		free(data->backup);
+									printf("exiting.. check leaks!!\n");
+									char buf[10];			//	per i leaks!!
+									read(0, &buf, 9);
 	
 	exit (0);
 //	free(data->stack_a);
@@ -87,11 +89,12 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[x] - s2[x]);
 }
 
-void	ft_check_num(long int tot, t_data *data)
+void	ft_check_num(long int tot, t_list **head, t_data *data)
 {
 	t_list *tmp;
 
-	tmp = *data->head;
+	tmp = *head;
+	
 	if (tot > 2147483647 || tot < -2147483648)
 		ft_exit("Error: out of INT range\n", data);
 	while (tmp)
@@ -100,11 +103,13 @@ void	ft_check_num(long int tot, t_data *data)
 			ft_exit("Error: duplicated nums\n", data);
 		tmp = tmp->next;
 	}
+//	printf("aaaqwe\n");
 }
 
 void	ft_add_num(long int tot, t_list **head, t_data *data)
 {
-	ft_check_num(tot, data);
+//	ft_check_num(tot, head, data);
+//	printf("ccccqwe\n");
 //	printf("\n\tft_add_num - start\n");
 	//while (data->stack_a != NULL)
 	//	data->stack_a = data->stack_a->next;
@@ -199,7 +204,8 @@ int	ft_check_swap(t_list **head, t_data *data)
 	int		min;
 	t_list	*tmp;
 
-	
+	if (*data->b_head)
+		return (0);
 	tmp = *head;
 	min = tmp->num;
 	while (tmp != NULL)
@@ -313,8 +319,8 @@ int main(int ac, char **av)
 	ft_get_range(&data);
 //	ft_print_stack(data.head);
 	ft_push_swap(&data);
-	ft_print_stack(data.head);
-	ft_print_stack(data.b_head);
+//	ft_print_stack(data.head);
+//	ft_print_stack(data.b_head);
 //	ft_print_stack(data.head);
 	ft_exit("", &data);
 }

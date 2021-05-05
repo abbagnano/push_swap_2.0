@@ -107,11 +107,11 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[x] - s2[x]);
 }
 
-void	ft_check_num(long int tot, t_data *data)
+void	ft_check_num(long int tot, t_list **head, t_data *data)
 {
 	t_list *tmp;
 
-	tmp = *data->head;
+	tmp = *head;
 	if (tot > 2147483647 || tot < -2147483648)
 		ft_exit("Error: out of INT range\n", data);
 	while (tmp)
@@ -152,7 +152,7 @@ int	ft_check_str(char *str, t_data *data, int neg)
 */
 void	ft_add_num(long int tot, t_list **head, t_data *data)
 {
-	ft_check_num(tot, data);
+	ft_check_num(tot, head, data);
 //	printf("\n\tft_add_num - start\n");
 	//while (data->stack_a != NULL)
 	//	data->stack_a = data->stack_a->next;
@@ -494,7 +494,8 @@ void	ft_check_sort(t_data *data)
 	int		min;
 	t_list	*tmp;
 
-	
+	if (*data->b_head)
+		ft_exit("KO!\n", data) ;
 	tmp = *data->head;
 	min = tmp->num;
 	while (tmp != NULL)
