@@ -268,25 +268,25 @@ int	ft_third_try(t_data *data)
 		if (data->len > 3 && (*data->head)->next->num == data->max && (*data->head)->num == data->min)
 		{
 			ft_swap(data->head);
-			ft_write("sa\n\n");
+			ft_write("sa \n");
 			ft_rotate(data->head);
-			ft_write("ra\n\n");
+			ft_write("ra \n");
 			ops += 2;
 		}
 		while ((*data->head)->next && (*data->head)->num < (*data->head)->next->num)
 		{
 			ft_rotate(data->head);//data->head = data->head->next;
-			ft_write("ra\n\n");
+			ft_write("ra \n");
 			ops++;
-			if ((*data->head)->next->num == data->min) //data->lowest->num)
+			if (data->len > 3 && (*data->head)->next->num == data->min) //data->lowest->num)
 			{
 				ft_rotate(data->head);//data->head = data->head->next;
-				ft_write("ra\n\n");
+				ft_write("ra \n");
 				ops++;
 			}
 		}
 		ft_swap(data->head);
-		ft_write("sa\n\n");
+		ft_write("sa \n");
 		ops++;
 		if (ft_keep_swapping(data->head, data))
 			continue ;
@@ -296,7 +296,7 @@ int	ft_third_try(t_data *data)
 			{
 			//	ft_print_stack(data->head);
 				ft_rotate(data->head);
-				ft_write("ra\n\n");
+				ft_write("ra \n");
 				ops++;
 			//	printf("rot\n");
 			}
@@ -307,7 +307,8 @@ int	ft_third_try(t_data *data)
 			{
 			//	ft_print_stack(data->head);
 				ft_rev_rot(data->head);
-				ft_write("rra\n");
+				ft_write("rra");
+				ft_write("\n");
 				ops++;
 			//	printf("rev_rot\n");
 			}

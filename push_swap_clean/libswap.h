@@ -18,6 +18,13 @@
 # include <unistd.h>
 # include <string.h>
 
+typedef struct  s_flags
+{
+	int	ch;
+	int	ps;
+	int	v;
+}               t_flags;
+
 typedef struct  s_list
 {
 	int num;
@@ -40,14 +47,10 @@ typedef struct s_data
 //	t_list	*start;
 //	t_list	*tail;
 	t_list	**backup;
+	t_flags	flags;
 }				t_data;
 
-typedef struct  s_flags
-{
-	int	ch;
-	int	ps;
-	int	v;
-}               t_flags;
+
 
 void	ft_swap(t_list **head);
 void	ft_push(t_list **topush, t_list **head);
