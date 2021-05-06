@@ -73,12 +73,16 @@ void	ft_exit(char *str, t_data *data)
 	}
 */	ft_free_stack(data->b_head);
 	free(data->b_head);
-//	if (data->backup)
-	ft_free_stack(data->backup);
-	free(data->backup);
+	printf("freeeing1\n");
+	if (data->backup && *data->backup)
+	{
+		printf("freeeing2\n");
+		ft_free_stack(data->backup);
+		free(data->backup);
+	}
 									printf("exiting.. check leaks!!\n");
-									char buf[10];			//	per i leaks!!
-									read(0, &buf, 9);
+									char buf[2];			//	per i leaks!!
+									read(0, &buf, 1);
 	
 	exit (0);
 //	free(data->stack_a);
@@ -124,7 +128,7 @@ void	ft_check_num(long int tot, t_list **head, t_data *data)
 
 void	ft_add_num(long int tot, t_list **head, t_data *data)
 {
-//	ft_check_num(tot, head, data);
+	ft_check_num(tot, head, data);
 //	printf("ccccqwe\n");
 //	printf("\n\tft_add_num - start\n");
 	//while (data->stack_a != NULL)

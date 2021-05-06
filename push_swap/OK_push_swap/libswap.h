@@ -32,7 +32,7 @@ typedef struct s_data
 	t_list	**b_head;
 //	t_list	*b_tail;
 	char	*txt;	
-//	int		len;
+	int		len;
 	int		min;
 	int		max;
 //	t_list	*lowest;
@@ -61,6 +61,7 @@ void	ft_push_swap(t_data *data);
 
 int		ft_check_swap(t_list **head, t_data *data);
 void    ft_print_stack(t_list **head);
+void	ft_free_stack(t_list **head);
 
 #endif
 
