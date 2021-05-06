@@ -73,16 +73,16 @@ void	ft_exit(char *str, t_data *data)
 	}
 */	ft_free_stack(data->b_head);
 	free(data->b_head);
-	printf("freeeing1\n");
+//	printf("freeeing1\n");
 	if (data->backup && *data->backup)
 	{
-		printf("freeeing2\n");
+//		printf("freeeing2\n");
 		ft_free_stack(data->backup);
 		free(data->backup);
 	}
-									printf("exiting.. check leaks!!\n");
-									char buf[2];			//	per i leaks!!
-									read(0, &buf, 1);
+//									printf("exiting.. check leaks!!\n");
+//									char buf[2];			//	per i leaks!!
+//									read(0, &buf, 1);
 	
 	exit (0);
 //	free(data->stack_a);
@@ -330,8 +330,8 @@ int main(int ac, char **av)
 //	printf("main head: %p\n", data.head);
 //	data.stack_a = *data.head;
 	ft_to_stack(av, ac, &data);
-	ft_print_stack(data.head);
-	ft_print_stack(data.b_head);
+//	ft_print_stack(data.head);
+//	ft_print_stack(data.b_head);
  //   ft_print_stack(data.stack_a);
 
 //	ft_print_stack(data.head);

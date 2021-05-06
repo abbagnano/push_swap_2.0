@@ -58,9 +58,9 @@ void	ft_exit(char *str, t_data *data)
 		free(tmp);	
 	}
 	free(data->b_head);
-									printf("exiting.. check leaks!!\n");
-									char buf[10];			//	per i leaks!!
-									read(0, &buf, 9);
+//									printf("exiting.. check leaks!!\n");
+//									char buf[10];			//	per i leaks!!
+//									read(0, &buf, 9);
 	
 	exit (0);
 //	free(data->stack_a);
@@ -404,7 +404,7 @@ void	ft_read_instr(t_data *data)
 	//	ft_buf_to_ops(buf, data);
 		buf[0] = '\0';
 	}
-	printf("-%s-\n", data->txt);
+//	printf("-%s-\n", data->txt);
 	free(buf);
 }
 
@@ -532,15 +532,15 @@ int main(int ac, char **av)
 //	data.stack_a = *data.head;
 	ft_to_stack(av, ac, &data);
  //   ft_print_stack(data.stack_a);
-	ft_print_stack(data.head);
-	ft_print_stack(data.b_head);
+//	ft_print_stack(data.head);
+//	ft_print_stack(data.b_head);
 	
 	ft_read_instr(&data);
 //printf("ops: %s\n", data.txt);
 		
 	ft_make_instr(&data);
-	ft_print_stack(data.b_head);
-	ft_print_stack(data.head);
+//	ft_print_stack(data.b_head);
+//	ft_print_stack(data.head);
 	ft_check_sort(&data);
 	
 	

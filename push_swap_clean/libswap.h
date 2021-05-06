@@ -44,9 +44,9 @@ typedef struct s_data
 
 typedef struct  s_flags
 {
-	int	s;
-	int	r;
-	int	p;
+	int	ch;
+	int	ps;
+	int	v;
 }               t_flags;
 
 void	ft_swap(t_list **head);

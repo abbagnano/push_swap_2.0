@@ -1,0 +1,73 @@
+commit 61a6492cf25761842ee6de712bc35eef0924d590
+Author: Francesco fortunato Gradia <fgradia@e4r8p4.42roma.it>
+Date:   Thu May 6 11:57:02 2021 +0200
+
+    06.05.21 - sistemato rotate e ottimizzato sort..
+
+commit 164200507e1529f2bbc15cc8dda854f54737a873
+Author: Francesco fortunato Gradia <fgradia@e4r8p4.42roma.it>
+Date:   Thu May 6 10:48:36 2021 +0200
+
+    06.05.21 - backup ok.. ottimizzare sort
+
+commit 74c1dca5859b4411d1e00d3e1cb70b587c023330
+Author: Francesco fortunato Gradia <fgradia@e4r8p4.42roma.it>
+Date:   Wed May 5 19:15:07 2021 +0200
+
+    05.05.21... problemi con restore_list
+
+commit 79e15acab29a4429e1f3333879ea90bceb9abbce
+Author: Francesco fortunato Gradia <fgradia@e4r8p4.42roma.it>
+Date:   Wed May 5 12:59:20 2021 +0200
+
+    05.05.21 - manca algoritmo per il sort
+
+commit 8e24d005697d72d142c202763f5a67007e83693b
+Author: abbagnano <73425644+abbagnano@users.noreply.github.com>
+Date:   Tue May 4 18:41:23 2021 +0200
+
+    04.05"tutto ko..da sistemare i movimenti dei nodi"
+    
+    prima copiavo solo il contenuto dei nodi.. ma poi per il push swap ho bisogno che si muovano gli address!!
+
+commit 5b5965ad29356b1a5f7fccc6cc0bcb7da3c486e4
+Author: Francesco fortunato Gradia <fgradia@e3r4p5.42roma.it>
+Date:   Tue May 4 15:13:49 2021 +0200
+
+    04.05.21 - checker ok.. working on swap
+
+commit 2ab5c7adb17035aec45cb5b5207e47c7ee651039
+Author: Francesco fortunato Gradia <fgradia@e3r4p5.42roma.it>
+Date:   Tue May 4 11:48:53 2021 +0200
+
+    04.05.21 - checker pare ok
+
+commit 1cca321e630a335c628ab1130e6ef2685e25575e
+Author: Francesco fortunato Gradia <fgradia@e3r4p5.42roma.it>
+Date:   Mon May 3 20:09:08 2021 +0200
+
+    03.05.21
+
+commit 77577fc6849e34cc05efd930879e430516c310c3
+Author: abbagnano <73425644+abbagnano@users.noreply.github.com>
+Date:   Mon May 3 15:09:28 2021 +0200
+
+    03.05.21
+
+commit a6dacec7f0e7a86e68b683217062dced28cbc045
+Author: abbagnano <73425644+abbagnano@users.noreply.github.com>
+Date:   Mon May 3 15:01:08 2021 +0200
+
+    02.05.21
+
+commit e9e8be3f1d39ccb490ecc0bc78dc7e07fa901338
+Author: Francesco fortunato Gradia <fgradia@e4r7p1.42roma.it>
+Date:   Thu Apr 29 15:23:24 2021 +0200
+
+    29.04.21
+
+commit 0c7dd2affe6e240f35d94b176e481b50b1a446c7
+Author: abbagnano <73425644+abbagnano@users.noreply.github.com>
+Date:   Wed Apr 28 18:43:36 2021 +0200
+
+    28.04.21
