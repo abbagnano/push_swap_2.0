@@ -33,12 +33,12 @@ typedef struct s_data
 //	t_list	*b_tail;
 	char	*txt;	
 //	int		len;
-//	int		min;
-//	int		max;
-	t_list	*lowest;
-	t_list	*maxest;
+	int		min;
+	int		max;
+//	t_list	*lowest;
+//	t_list	*maxest;
 //	t_list	*start;
-	t_list	*tail;
+//	t_list	*tail;
 	t_list	**backup;
 }				t_data;
 

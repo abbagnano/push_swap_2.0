@@ -6,28 +6,30 @@ void	ft_get_range(t_data *data)
 //	int max;
 	t_list *tmp;
 
-	data->lowest = (t_list *)malloc(sizeof(t_list ) * 1);
-	data->maxest = (t_list *)malloc(sizeof(t_list ) * 1);
+//	data->lowest = (t_list *)malloc(sizeof(t_list ) * 1);
+//	data->maxest = (t_list *)malloc(sizeof(t_list ) * 1);
 //	data->start = (t_list *)malloc(sizeof(t_list *) * 1);
-	data->tail = (t_list *)malloc(sizeof(t_list *) * 1);
+//	data->tail = (t_list *)malloc(sizeof(t_list *) * 1);
 //	data->start = *data->head;
 	tmp = *data->head;
-	data->lowest->num = tmp->num;
-	data->maxest->num = tmp->num;
+//	data->lowest->num = tmp->num;
+//	data->maxest->num = tmp->num;
+	data->min = tmp->num;
+	data->max = tmp->num;
 	while (tmp)
 	{
-		if (tmp->num > data->maxest->num)
+		if (tmp->num > data->max)//data->maxest->num)
 		{
-//			data->max = tmp->num;
-			data->maxest = tmp;
+			data->max = tmp->num;
+//			data->maxest = tmp;
 		}
-		else if (tmp->num < data->lowest->num)
+		else if (tmp->num < data->min) //data->lowest->num)
 		{
-//			data->min = tmp->num;
-			data->lowest = tmp;
+			data->min = tmp->num;
+//			data->lowest = tmp;
 		}
-		if (!tmp->next)
-			data->tail = tmp;
+//		if (!tmp->next)
+//			data->tail = tmp;
 		tmp = tmp->next;
 	}
 	//tmp = *data->head;
@@ -66,7 +68,7 @@ int		ft_first_try(t_data *data)
 		//	}
 			ft_rotate(data->head);//data->head = data->head->next;
 			ops++;
-			if ((*data->head)->next->num == data->lowest->num)
+			if ((*data->head)->next->num == data->min) //data->lowest->num)
 			{
 				ft_rotate(data->head);//data->head = data->head->next;
 				ops++;
@@ -89,7 +91,7 @@ int		ft_first_try(t_data *data)
 	//		ops++;
 		//	ft_print_stack(data->head);
 	//	}
-		while ((*data->head)->num != data->lowest->num)
+		while ((*data->head)->num != data->min) //data->lowest->num)
 		{
 	//		printf("\n\truoto la lista finche non mmetto il lowest alla head\n");
 	//		printf("headnum: %d\n", (*data->head)->num );
@@ -186,7 +188,7 @@ int	ft_keep_swapping(t_list **head, t_data *data)
 	while (tmp->next)
 	{
 	//	printf("%d\t%d\n",tmp->num, tmp->next->num  );
-		if (/*tmp->next->num &&*/ tmp->next->num != data->lowest->num && tmp->num > tmp->next->num)
+		if (/*tmp->next->num &&*/ tmp->next->num != data->min /*data->lowest->num*/ && tmp->num > tmp->next->num)
 		{
 			printf("\n%d\t%d\n",tmp->num, tmp->next->num  );
 			ft_print_stack(&tmp);
@@ -200,7 +202,9 @@ int	ft_keep_swapping(t_list **head, t_data *data)
 
 int	ft_second_try(t_data *data)
 {
-	//ft_print_stack(data->head);
+//	printf("ft_second\n");
+//	ft_print_stack(data->head);
+//	ft_print_stack(data->backup);
 	int ops;
 
 	ops = 0;
@@ -211,7 +215,7 @@ int	ft_second_try(t_data *data)
 		{
 			ft_rotate(data->head);//data->head = data->head->next;
 			ops++;
-			if ((*data->head)->next->num == data->lowest->num)
+			if ((*data->head)->next->num == data->min) //data->lowest->num)
 			{
 				ft_rotate(data->head);//data->head = data->head->next;
 				ops++;
@@ -221,13 +225,16 @@ int	ft_second_try(t_data *data)
 		ops++;
 		if (ft_keep_swapping(data->head, data))
 			continue ;
-		while ((*data->head)->num != data->lowest->num)
+		while ((*data->head)->num != data->min) //data->lowest->num)
 		{
 			
 			ft_rotate(data->head);
 			ops++;
 		}
 	}
+//		printf("ending - ft_second\n");
+//	ft_print_stack(data->head);
+//	ft_print_stack(data->backup);
 	return (ops);
 }
 
@@ -242,7 +249,7 @@ int	ft_third_try(t_data *data)
 		{
 			ft_rotate(data->head);//data->head = data->head->next;
 			ops++;
-			if ((*data->head)->next->num == data->lowest->num)
+			if ((*data->head)->next->num == data->min) //data->lowest->num)
 			{
 				ft_rotate(data->head);//data->head = data->head->next;
 				ops++;
@@ -252,7 +259,7 @@ int	ft_third_try(t_data *data)
 		ops++;
 		if (ft_keep_swapping(data->head, data))
 			continue ;
-		while ((*data->head)->num != data->lowest->num)
+		while ((*data->head)->num != data->min) //data->lowest->num)
 		{
 			ft_rotate(data->head);
 			ops++;
@@ -267,13 +274,14 @@ void	ft_backup_list(t_list **empty, t_list **head, t_data *data)
 
 	tmp = *head;
 	*empty = NULL;
-	while(tmp)
+	while(tmp != NULL)
 	{
 	//	printf("qwe\n");
 		ft_add_num(tmp->num, empty, data);
 		tmp = tmp->next;
 	}
-	data->backup = empty;
+	tmp = NULL;
+//	data->backup = empty;
 //ft_print_stack(empty);
 }
 
@@ -284,15 +292,18 @@ void	ft_restore_list(t_list **dst, t_list **src)
 
 	tmp = *src;
 	new = *dst;
+//	new = NULL;
+		printf("qwe\n");
 	while(tmp)
 	{
-		//printf("qwe\n");
+	//	printf("qwe\n");
 		new->num = tmp->num;
 		new->next = tmp->next;
 		tmp = tmp->next;
 		new = new->next;
 	}
 	new = NULL;
+	printf("endqwe\n");
 //	new->next = NULL;
 //	printf("qwe\n");
 //	tmp = *dst;
@@ -308,39 +319,66 @@ void	ft_restore_list(t_list **dst, t_list **src)
 
 void	ft_push_swap(t_data *data)
 {
-		printf("data-minest: %d \t data-maxest: %d \ttail-num: %d\n", (data->lowest)->num, (data->maxest)->num, data->tail->num);
+	//	printf("data-minest: %d \t data-maxest: %d \ttail-num: %d\n", (data->lowest)->num, (data->maxest)->num, data->tail->num);
 	int	a;
 	int b;
 	int c;
 
-	t_list **backup;
+//	t_list **backup;
 	//backup = NULL;
-	backup = (t_list **)malloc(sizeof(t_list *) * 1);
-	*backup = NULL;	
-	ft_backup_list(backup, data->head, data);
-//	printf("qwe\n");
-//	backup = data->head;
-	a = ft_first_try(data);
-//	a = ft_first_try(backup);
-	printf("\n\t\ta mosse: %d\n", a);
-//	printf("\npre data = &backup;\n");
-//	ft_print_stack(backup);
+	data->backup = (t_list **)malloc(sizeof(t_list *) * 1);
+	*data->backup = NULL;
+//	printf("\n\npre backup\n");
+//	ft_print_stack(data->backup);
 //	ft_print_stack(data->head);
-	ft_restore_list(data->head, backup);     /// con il restore_list sul secondtry va in loop
-//	data->head = backup;					/// con data->head = backup il secondtry va ok!!
-//	ft_backup_list(backup, data->head, data);
+	ft_backup_list(data->backup, data->head, data);
+//	printf("\n\npost backup\n");
+//	ft_print_stack(data->backup);
+//	ft_print_stack(data->head);
+
+//	return ;
+//	printf("qwe\n");
+//	data->backup = data->head;
+//	printf("\n\npre sort\n");
+//	ft_print_stack(data->backup);
+//	ft_print_stack(data->head);
+	a = ft_first_try(data);
+//	a = ft_first_try(data->backup);
+	printf("\n\t\ta mosse: %d\n", a);
+	ft_free_stack(data->head);
+	ft_backup_list(data->head, data->backup, data);
+//	return ;
+//	printf("\npre data = &data->backup;\n");
+//	ft_print_stack(data->backup);
+//	ft_print_stack(data->head);
+//	printf("\n\npost sort\n");
+//	ft_print_stack(data->backup);
+//	ft_print_stack(data->head);
+//	ft_restore_list(data->head, data->backup);   
+//	printf("\n\npost restore & pre 2nd sort\n");
+//	ft_print_stack(data->backup);
+//	ft_print_stack(data->head);
+//	return ;
+//	data->head = data->backup;					
+//	ft_data->backup_list(data->backup, data->head, data);
 //	printf("\n\n1qwe\n");
-//		ft_print_stack(backup);
-//	printf("\npost data = &backup;\n");
+//		ft_print_stack(data->backup);
+//	printf("\npost data = &data->backup;\n");
 //	ft_print_stack(data->head);
 	b = ft_second_try(data);
 	printf("\n\t\tb mosse: %d\n", b);
+	ft_free_stack(data->head);
+	ft_backup_list(data->head, data->backup, data);
 //	ft_print_stack(data->head);
-//	data->head = backup;
-//	ft_backup_list(backup, data->head, data);
-	ft_restore_list(data->head, backup);
-//	printf("\n\n2qwe\n");
-//	ft_print_stack(backup);
+//	data->head = data->backup;
+//	ft_data->backup_list(data->backup, data->head, data);
+//	printf("\n\npost second sort\n");
+//	ft_print_stack(data->backup);
+//	ft_print_stack(data->head);
+//	ft_restore_list(data->head, data->backup);
+//	printf("\n\npost 2nd restore\n");
+//	ft_print_stack(data->backup);
+//	ft_print_stack(data->head);
 	c = ft_third_try(data);
 	printf("\n\t\tc mosse: %d\n", c);
 //	ft_print_stack(data->head);

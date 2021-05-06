@@ -33,6 +33,19 @@ void    ft_free_stack(t_list **stack, t_data *data)
 }
 */
 
+void	ft_free_stack(t_list **head)
+{
+	t_list *tmp;
+
+	while (*head)
+	{
+	//	printf("freeeing: %d\n", (*data->head)->num);
+		tmp = *head;
+		*head = (*head)->next;
+		free(tmp);	
+	}
+}
+
 void	ft_exit(char *str, t_data *data)
 {
 	t_list *tmp;
@@ -42,24 +55,27 @@ void	ft_exit(char *str, t_data *data)
 	ft_write(str);
 //	ft_free_stack(&data->stack_a, data);
 //  (void)data;
-	while (*data->head)
+/*	while (*data->head)
 	{
 	//	printf("freeeing: %d\n", (*data->head)->num);
 		tmp = *data->head;
 		*data->head = (*data->head)->next;
 		free(tmp);	
 	}
+*/	ft_free_stack(data->head);
 	free(data->head);
-	while (*data->b_head)
+/*	while (*data->b_head)
 	{
 	//	printf("freeeing: %d\n", (*data->head)->num);
 		tmp = *data->b_head;
 		*data->b_head = (*data->b_head)->next;
 		free(tmp);	
 	}
+*/	ft_free_stack(data->b_head);
 	free(data->b_head);
-	if (data->backup)
-		free(data->backup);
+//	if (data->backup)
+	ft_free_stack(data->backup);
+	free(data->backup);
 									printf("exiting.. check leaks!!\n");
 									char buf[10];			//	per i leaks!!
 									read(0, &buf, 9);
@@ -122,6 +138,7 @@ void	ft_add_num(long int tot, t_list **head, t_data *data)
 	
 //	if (data->tail != NULL)
 //		new = *data->tail;
+	tmp = *head;
 	new = (t_list *)malloc(sizeof(t_list) * 1);
 	new->num = tot;
 //		printf("\nstack[]= %d\n", new->num);
@@ -130,7 +147,6 @@ void	ft_add_num(long int tot, t_list **head, t_data *data)
 		*head = new;
 	else 
 	{
-		tmp = *head;
 		while (tmp->next != NULL)
 			tmp = tmp->next;
 		tmp->next = new;
@@ -185,7 +201,8 @@ void    ft_print_stack(t_list **head)
 //	printf("head[0]= %d\n", (*head)->num);
 	 while (stack != NULL)
 	{
-		printf("stack[]= %d\n", stack->num);
+		printf("stack[]= %p\t", &stack->num);
+		printf("=== %d\n", stack->num);
 		stack = stack->next;
 	}
 }
