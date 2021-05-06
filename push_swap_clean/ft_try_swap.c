@@ -316,6 +316,8 @@ int	ft_third_try(t_data *data)
 		
 	}
 	ft_write("\n");
+	printf("%d\n", ops);
+	
 	return (ops);
 }
 

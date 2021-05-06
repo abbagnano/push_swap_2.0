@@ -190,9 +190,7 @@ void	ft_read_instr(t_data *data)
 	{
 		r = read(0, buf, 4);
 		buf[r] = '\0';
-	//	printf("print: %s\n", buf);
-	//	ft_write(buf);
-		if (buf[0] == '\n')
+		if (buf[0] == '\n' || buf[0] == '\0')
 			break ;
 		ft_check_buf(buf, r, data);		
 		data->txt = ft_buf_to_txt(buf, data->txt);

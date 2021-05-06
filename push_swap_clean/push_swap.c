@@ -126,6 +126,41 @@ void	ft_split_str(char *str, t_data *data)
 	}
 	return ;
 }
+/*
+char	*ft_itoa(int num)
+{
+	char	*tot;
+	int		x;
+	int		y;
+
+	x = 0;
+	y = num;
+
+
+
+char	*ft_itoa(int	num, char *char_sprite)
+{
+	t_idx	idx;
+
+	ft_init_idx(&idx);
+	idx.z = num;
+	while (idx.z > 0 && ++idx.x)
+		idx.z /= 10;
+	if (num == 0)
+		idx.x = 1;
+	free(char_sprite);
+	char_sprite = (char *)malloc(sizeof(char) * (idx.x + 1));
+	char_sprite[idx.x--] = '\0';
+	idx.z = num;
+	while (idx.z >= 10)
+	{
+		char_sprite[idx.x--] = idx.z % 10 + 48;
+		idx.z /= 10;
+	}
+	char_sprite[idx.x] = idx.z + 48;
+	return (char_sprite);
+}
+*/
 
 void    ft_print_stack(t_list **head)
 {
@@ -134,7 +169,9 @@ void    ft_print_stack(t_list **head)
 	stack = *head;
 	 while (stack != NULL)
 	{
-		printf("=== %d\n", stack->num);
+		//printf("=== %d\n", stack->num);
+
+		ft_write(ft_itoa(stack->num));
 		stack = stack->next;
 	}
 }
@@ -187,6 +224,6 @@ int main(int ac, char **av)
 	ft_get_range(&data);
 
 	ft_push_swap(&data);
-
+ft_print_stack(data.head);
 	ft_exit("", &data);
 }
