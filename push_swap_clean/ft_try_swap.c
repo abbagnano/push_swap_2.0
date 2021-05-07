@@ -17,6 +17,8 @@ void	ft_get_range(t_data *data)
 //	data->maxest->num = tmp->num;
 	data->min = tmp->num;
 	data->max = tmp->num;
+//	data->med = 0;
+//	data->zxc = 0;
 	while (tmp)
 	{
 		if (tmp->num > data->max)//data->maxest->num)
@@ -27,19 +29,27 @@ void	ft_get_range(t_data *data)
 		else if (tmp->num < data->min) //data->lowest->num)
 		{
 			data->min = tmp->num;
+			
 //			data->lowest = tmp;
 		}
 //		if (!tmp->next)
 //			data->tail = tmp;
+	//	data->zxc = (data->zxc + tmp->num) / 2;
+	//	data->med += tmp->num;
+		//tmp->pos = 1;
 		tmp = tmp->next;
 		data->len++;
 	}
+//	data->med = data->med / data->len;
+//	data->zxc = (data->min + data->max) / 2;
 	//tmp = *data->head;
 	//while (tmp && tmp->num != data->min)
 	//	tmp = tmp->next;
 	//*data->lowest = tmp;
 //	printf("min: %d\t max: %d \n", data->min, data->max);
 //	printf("data-minest: %d\t data-maxest: %d \nstart->num: %d\ttail-num: %d\n", (data->lowest)->num, (data->maxest)->num, data->start->num, data->tail->num);
+//	printf("med.%lld\n", data->med);
+//	printf("zxc.%lld\n", data->zxc);
 }
 
 
@@ -47,10 +57,10 @@ void	ft_get_range(t_data *data)
 int		ft_first_try(t_data *data)
 {
 //	t_list *tmp_head;
-	int ops;
+	
 
 	
-	ops = 0;
+	data->ops = 0;
 	while (!(ft_check_swap(data->head, data)))// && (*data->b_head))
 	{
 	//	printf("\n\n\n\tSTART\n");
@@ -65,32 +75,32 @@ int		ft_first_try(t_data *data)
 		//	if ((*data->b_head) && (*data->b_head)->num < (*data->head)->num)
 		//	{	
 		//		ft_push(data->b_head, data->head);
-		//		ops++;
+		//		data->ops++;
 			//	ft_print_stack(data->head);
 		//	}
 			ft_rotate(data->head);//data->head = data->head->next;
-			ops++;
+			data->ops++;
 			if ((*data->head)->next->num == data->min) //data->lowest->num)
 			{
 				ft_rotate(data->head);//data->head = data->head->next;
-				ops++;
+				data->ops++;
 			}
 		}
 	//	printf("before pb: headnum: %d\n", (*data->head)->num );
 	//	if ((*data->head)->num != data->maxest->num)
 	//	{
 	//		ft_push(data->head, data->b_head);
-	//		ops++;
+	//		data->ops++;
 	//	}	
 	//	else
 	//	{
 			ft_swap(data->head);
-			ops++;
+			data->ops++;
 	//	}
 	//	if ((*data->b_head) && (*data->b_head)->num < (*data->head)->num)
 	//	{
 	//		ft_push(data->b_head, data->head);
-	//		ops++;
+	//		data->ops++;
 		//	ft_print_stack(data->head);
 	//	}
 		while ((*data->head)->num != data->min) //data->lowest->num)
@@ -101,11 +111,11 @@ int		ft_first_try(t_data *data)
 		//	if ((*data->b_head) && (*data->b_head)->num < (*data->head)->num)
 		//	{
 		//		ft_push(data->b_head, data->head);
-		//		ops++;
+		//		data->ops++;
 			//	ft_print_stack(data->head);
 		//	}
 			ft_rotate(data->head);
-			ops++;
+			data->ops++;
 		}
 	}
 //	printf("\n\tFINE\n");
@@ -134,7 +144,7 @@ int		ft_first_try(t_data *data)
 		//	if ((*data->head)->next->num == data->lowest->num)
 		//		break ;
 			ft_rotate(data->head);//data->head = data->head->next;
-			ops++;
+			data->ops++;
 		}
 		ft_print_stack(data->head);
 		if ((*data->head)->num > (*data->head)->next->num && /(*data->head)->next->num != data->lowest->num && /(*data->head)->num != data->maxest->num)
@@ -143,7 +153,7 @@ int		ft_first_try(t_data *data)
 		//	if ((*data->head)->next->num == data->lowest->num)
 			//	break ;
 			ft_swap(data->head);
-			ops++;
+			data->ops++;
 		}
 		ft_print_stack(data->head);
 	//	printf("data-minest: %d\n", data->lowest->num);
@@ -153,7 +163,7 @@ int		ft_first_try(t_data *data)
 	//		printf("headnum: %d\n", (*data->head)->num );
 	//		printf("\n\tFINE\n");
 			ft_rotate(data->head);
-			ops++;
+			data->ops++;
 		}
 		ft_print_stack(data->head);
 	}
@@ -164,7 +174,7 @@ int		ft_first_try(t_data *data)
 		if (tmp->num < tmp->next->num)
 		{
 			ft_swap(&tmp);
-			ops++;
+			data->ops++;
 			printf("\n\t\tswappato\n");
 			ft_print_stack(&tmp);
 		}
@@ -179,7 +189,7 @@ int		ft_first_try(t_data *data)
 //	printf("\n\tFINE\n");
 //printf("data-minest: %d\n", data->lowest->num);
 //	ft_print_stack(&tmp);
-	return (ops);
+	return (data->ops);
 }
 
 int	ft_keep_swapping(t_list **head, t_data *data)
@@ -187,6 +197,8 @@ int	ft_keep_swapping(t_list **head, t_data *data)
 	t_list *tmp;
 
 	tmp = *head;
+//	if ((*data->b_head))
+//		return (1);
 	while (tmp->next)
 	{
 	//	printf("%d\t%d\n",tmp->num, tmp->next->num  );
@@ -207,37 +219,37 @@ int	ft_second_try(t_data *data)
 //	printf("ft_second\n");
 //	ft_print_stack(data->head);
 //	ft_print_stack(data->backup);
-	int ops;
+	
 
-	ops = 0;
+	data->ops = 0;
 	while (!(ft_check_swap(data->head, data)) )// && (*data->b_head))
 	{
-	//	printf("ops: %d\n", ops);
+	//	printf("data->ops: %d\n", data->ops);
 		while ((*data->head)->next && (*data->head)->num < (*data->head)->next->num )
 		{
 			ft_rotate(data->head);//data->head = data->head->next;
-			ops++;
+			data->ops++;
 			if ((*data->head)->next->num == data->min) //data->lowest->num)
 			{
 				ft_rotate(data->head);//data->head = data->head->next;
-				ops++;
+				data->ops++;
 			}
 		}
 		ft_swap(data->head);
-		ops++;
+		data->ops++;
 		if (ft_keep_swapping(data->head, data))
 			continue ;
 		while ((*data->head)->num != data->min) //data->lowest->num)
 		{
 			
 			ft_rotate(data->head);
-			ops++;
+			data->ops++;
 		}
 	}
 //		printf("ending - ft_second\n");
 //	ft_print_stack(data->head);
 //	ft_print_stack(data->backup);
-	return (ops);
+	return (data->ops);
 }
 
 int ft_find_lower(t_list **head, t_data *data)
@@ -260,34 +272,34 @@ int ft_find_lower(t_list **head, t_data *data)
 
 int	ft_third_try(t_data *data)
 {
-	int ops;
+	
 
-	ops = 0;
+	data->ops = 0;
 	while (!(ft_check_swap(data->head, data)))// && (*data->b_head))
 	{
-		if (data->len > 3 && (*data->head)->next->num == data->max && (*data->head)->num == data->min)
+		if (data->len > 4 && (*data->head)->next->num == data->max && (*data->head)->num == data->min)
 		{
 			ft_swap(data->head);
 			ft_write("sa \n");
 			ft_rotate(data->head);
 			ft_write("ra \n");
-			ops += 2;
+			data->ops += 2;
 		}
 		while ((*data->head)->next && (*data->head)->num < (*data->head)->next->num)
 		{
 			ft_rotate(data->head);//data->head = data->head->next;
 			ft_write("ra \n");
-			ops++;
+			data->ops++;
 			if (data->len > 3 && (*data->head)->next->num == data->min) //data->lowest->num)
 			{
 				ft_rotate(data->head);//data->head = data->head->next;
 				ft_write("ra \n");
-				ops++;
+				data->ops++;
 			}
 		}
 		ft_swap(data->head);
 		ft_write("sa \n");
-		ops++;
+		data->ops++;
 		if (ft_keep_swapping(data->head, data))
 			continue ;
 		if (ft_find_lower(data->head, data) < data->len/2)
@@ -297,7 +309,7 @@ int	ft_third_try(t_data *data)
 			//	ft_print_stack(data->head);
 				ft_rotate(data->head);
 				ft_write("ra \n");
-				ops++;
+				data->ops++;
 			//	printf("rot\n");
 			}
 		}
@@ -309,16 +321,16 @@ int	ft_third_try(t_data *data)
 				ft_rev_rot(data->head);
 				ft_write("rra");
 				ft_write("\n");
-				ops++;
+				data->ops++;
 			//	printf("rev_rot\n");
 			}
 		}
 		
 	}
 	ft_write("\n");
-	printf("%d\n", ops);
+	printf("data->ops: %d\n", data->ops);
 	
-	return (ops);
+	return (data->ops);
 }
 
 void	ft_backup_list(t_list **empty, t_list **head, t_data *data)
@@ -371,10 +383,12 @@ void	ft_restore_list(t_list **dst, t_list **src)
 
 void	ft_push_swap(t_data *data)
 {
-	ft_third_try(data);
-
+//	if (data->len < 10)
+		ft_third_try(data);
+//	else
+//		ft_comp_sort(data);
 }
-
+/*
 void	ft_push_swap____first(t_data *data)
 {
 	//	printf("data-minest: %d \t data-maxest: %d \ttail-num: %d\n", (data->lowest)->num, (data->maxest)->num, data->tail->num);
@@ -445,4 +459,4 @@ void	ft_push_swap____first(t_data *data)
 	printf("\n\t\tc mosse: %d\n", c);
 	ft_print_stack(data->head);
 	
-}
+}*/

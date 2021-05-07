@@ -18,13 +18,6 @@
 # include <unistd.h>
 # include <string.h>
 
-typedef struct  s_flags
-{
-	int	ch;
-	int	ps;
-	int	v;
-}               t_flags;
-
 typedef struct  s_list
 {
 	int num;
@@ -33,21 +26,22 @@ typedef struct  s_list
 
 typedef struct s_data
 {
-	t_list	**head;
+	t_list		**head;
 //	t_list	*stack_a;
-//	t_list	*tail;
-	t_list	**b_head;
+//	t_list	*tail
+	t_list		**b_head;
 //	t_list	*b_tail;
-	char	*txt;	
-	int		len;
-	int		min;
-	int		max;
+	char		*txt;	
+	int			len;
+	int			min;
+	int			max;
+	int		ops;
+//	long long	zxc;
 //	t_list	*lowest;
 //	t_list	*maxest;
 //	t_list	*start;
 //	t_list	*tail;
-	t_list	**backup;
-	t_flags	flags;
+	t_list		**backup;
 }				t_data;
 
 
@@ -61,11 +55,15 @@ void	ft_add_num(long int tot, t_list **head, t_data *data);
 
 void	ft_get_range(t_data *data);
 void	ft_push_swap(t_data *data);
+int ft_find_lower(t_list **head, t_data *data);
+int	ft_keep_swapping(t_list **head, t_data *data);
 
 int		ft_check_swap(t_list **head, t_data *data);
 void    ft_print_stack(t_list **head);
 void	ft_free_stack(t_list **head);
 void	ft_write(char *str);
+
+void	ft_find_med(t_list **head, t_data *data);
 
 #endif
 

@@ -104,12 +104,12 @@ void	ft_split_str(char *str, t_data *data)
 			neg++;
 		else if (*str == '+')
 			str++;
-		if ((*str < '0' || *str > '9') && *str != '\0')
+		if ((*str < '0' || *str > '9') && *str != '\0' && printf("%s\n", str))
 			ft_exit("Error\n", data);
 		while (*str >= '0' && *str <= '9')
 			tot = tot * 10 + *str++ - 48;
 		if (*str != '\0' && !(*str == '\t' || *str == '\n' || *str == '\v' || *str == '\f' || *str == '\r' || *str == ' '))
-			ft_exit("Error\n", data);
+			ft_exit("Error: problem with argv string!\n", data);
 		if (neg)
 			tot *= -1;
 		ft_add_num(tot, data->head, data);
