@@ -36,11 +36,15 @@ typedef struct s_data
 	int			min;
 	int			max;
 	int		ops;
+//	int		flag_both;
+	int			b_min;
 //	long long	zxc;
+//	long long med;
+//	long long qwe;
 //	t_list	*lowest;
 //	t_list	*maxest;
 //	t_list	*start;
-//	t_list	*tail;
+	t_list	*tail;
 	t_list		**backup;
 }				t_data;
 
@@ -64,6 +68,12 @@ void	ft_free_stack(t_list **head);
 void	ft_write(char *str);
 
 void	ft_find_med(t_list **head, t_data *data);
+void	ft_new_sort(t_list **head, t_data *data);
+
+int	ft_while_sorted(t_list **head, t_data *data);
+t_list	*ft_get_tail(t_list **head, t_list *tail);
+void	ft_move_wrong(t_list **head, t_data *data);
+void	ft_check_if_pa(t_list **head, t_data *data);
 
 #endif
 

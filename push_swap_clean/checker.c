@@ -100,6 +100,8 @@ void	ft_split_str(char *str, t_data *data)
 		tot = 0;
 		while (*str == '\t' || *str == '\n' || *str == '\v' || *str == '\f' || *str == '\r' || *str == ' ')
 			str++;
+		if (*str == '\0')
+			return ;
 		if (*str == '-' && *str++)
 			neg++;
 		else if (*str == '+')
@@ -302,6 +304,7 @@ int main(int ac, char **av)
 	}
 	data.head = (t_list **)malloc(sizeof(t_list *) * 1);
 	data.b_head = (t_list **)malloc(sizeof(t_list *) * 1);
+	data.tail = (t_list *)malloc(sizeof(t_list ) * 1);
 	*data.head = NULL;
 	*data.b_head = NULL;
 	data.txt = NULL;

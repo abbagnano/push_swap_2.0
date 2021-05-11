@@ -64,7 +64,7 @@ void	ft_rotate(t_list **head)
 //	t_list	*new;
 //	int		num;
 
-	if (!(head) || !(*head))// || !((*head)->next))
+	if (!(head) || !(*head) || !(*head)->next)
 	{
 		//printf("qwe\n");
 		return ;
@@ -93,7 +93,7 @@ void	ft_rotate(t_list **head)
 	*head = tmp;
 */	//(*head)->next = last;
 //	printf("\t\tnewnum: %d\n", (*head)->num);
-
+//printf("stack post rotate\n");
 //	ft_print_stack(head);
 //	last->next = NULL;
 //	tmp = *head;
@@ -151,7 +151,7 @@ void	ft_rev_rot(t_list **head)
 	t_list	*last;
 	t_list	*tmp;
 
-	if (!(head) || !(*head))// || !((*head)->next))
+	if (!(head) || !(*head) || !((*head)->next))
 	{
 		//printf("qwe\n");
 		return ;

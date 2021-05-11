@@ -5,7 +5,7 @@ CFLAGS	=	-Wall -Wextra -Werror
 #SRCS2	=	ft_move_stack.c ft_try_swap.c push_swap.c
 OBJS1	=	ft_move_stack.o checker.o
 OBJS2	=	ft_move_stack.o ft_try_swap.o push_swap.o \
-			ft_complex_sort.o
+			ft_complex_sort.o utils_new_sort.o
 
 
 all		:	$(OUT1) $(OUT2)

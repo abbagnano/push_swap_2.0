@@ -110,6 +110,8 @@ void	ft_split_str(char *str, t_data *data)
 		tot = 0;
 		while (*str == '\t' || *str == '\n' || *str == '\v' || *str == '\f' || *str == '\r' || *str == ' ')
 			str++;
+		if (*str == '\0')
+			return ;
 		if (*str == '-' && *str++)
 			neg++;
 		else if (*str == '+')
@@ -181,26 +183,32 @@ int main(int ac, char **av)
 	}
 	data.head = (t_list **)malloc(sizeof(t_list *) * 1);
 	data.b_head = (t_list **)malloc(sizeof(t_list *) * 1);
+	data.tail = (t_list *)malloc(sizeof(t_list ) * 1);
 	*data.head = NULL;
 	*data.b_head = NULL;
+//	data.flag_both = 0;
 	
 	ft_to_stack(av, ac, &data);
 
 	ft_get_range(&data);
 //		printf("pre head:\n");
-ft_print_stack(data.head);
-	if (data.len > 10)
-		ft_find_med(data.head, &data);
-	else
-		ft_push_swap(&data);
-	ft_write("\n");
+//ft_print_stack(data.head);
+//	if (data.len >= 10)
+		ft_new_sort(data.head, &data);
+//		ft_find_med(data.head, &data);
+//	else
+//		ft_push_swap(&data);
+//	ft_write("\n");
 	printf("data->ops: %d\n", data.ops);
 //	printf("head:\n");
 //	ft_print_stack(data.head);
 //								ft_push_swap(&data);
-	printf("post head:\n");
+/*	printf("post head:\n");
 ft_print_stack(data.head);
-//printf("med.%lld\n", data.med);
+printf("post b_head:\n");
+ft_print_stack(data.b_head);
+*///printf("med.%lld\n", data.med);
 //	printf("zxc.%lld\n", data.zxc);
+//printf("b_min : %d\n", data.b_min);
 	ft_exit("", &data);
 }

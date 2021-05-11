@@ -34,14 +34,14 @@ void	ft_get_range(t_data *data)
 		}
 //		if (!tmp->next)
 //			data->tail = tmp;
-	//	data->zxc = (data->zxc + tmp->num) / 2;
-	//	data->med += tmp->num;
+//		data->zxc = (data->zxc + tmp->num) / 2;
+//		data->med += tmp->num;
 		//tmp->pos = 1;
 		tmp = tmp->next;
 		data->len++;
 	}
 //	data->med = data->med / data->len;
-//	data->zxc = (data->min + data->max) / 2;
+//	data->qwe = (data->min + data->max) / 2;
 	//tmp = *data->head;
 	//while (tmp && tmp->num != data->min)
 	//	tmp = tmp->next;
@@ -50,6 +50,9 @@ void	ft_get_range(t_data *data)
 //	printf("data-minest: %d\t data-maxest: %d \nstart->num: %d\ttail-num: %d\n", (data->lowest)->num, (data->maxest)->num, data->start->num, data->tail->num);
 //	printf("med.%lld\n", data->med);
 //	printf("zxc.%lld\n", data->zxc);
+//	printf("qwe.%lld\n", data->qwe);
+
+//	exit(0);
 }
 
 
@@ -197,19 +200,33 @@ int	ft_keep_swapping(t_list **head, t_data *data)
 	t_list *tmp;
 
 	tmp = *head;
+	(void)data;
 //	if ((*data->b_head))
+//		return (1);
+//	if ((*head)->num != data->min && tmp->num > (*head)->num)
 //		return (1);
 	while (tmp->next)
 	{
 	//	printf("%d\t%d\n",tmp->num, tmp->next->num  );
-		if (/*tmp->next->num &&*/ tmp->next->num != data->min /*data->lowest->num*/ && tmp->num > tmp->next->num)
-		{
+	//	if (tmp->next->num != data->min && tmp->num > tmp->next->num) 
+	//	{
 		//	printf("\n%d\t%d\n",tmp->num, tmp->next->num  );
 		//	ft_print_stack(&tmp);
+	//		return (1);
+	//	}
+	//	ft_check_if_pa(head, data);
+		
+		if (tmp->num > tmp->next->num) 
+		{
+			if (tmp->num == data->max && tmp->next->num == data->min)
+				return (0);
 			return (1);
 		}
 		tmp = tmp->next;
 	}
+//	printf("head: %d\tnum: tmp: %d\n", (*head)->num, tmp->num);
+//	if (tmp->num > (*head)->num && (*head)->num != data->min && tmp->num != data->max)
+//		return (1);
 //	printf("qwe\n");
 	return (0);
 }

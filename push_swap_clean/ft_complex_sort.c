@@ -2,6 +2,8 @@
 
 //https://visualgo.net/en/sorting?slide=8
 
+//make re && clear && ./push_swap 1 5 2 44 4 3 0 10 11 22 -9 -8 
+
 void	ft_put_lower_at_head(t_list **head, t_data *data)
 {
 	if (ft_find_lower(head, data) < data->len/2)
@@ -9,9 +11,11 @@ void	ft_put_lower_at_head(t_list **head, t_data *data)
 		while ((*head)->num != data->min) //data->lowest->num)
 		{
 		//	ft_print_stack(head);
+			ft_check_if_pa(head, data);
 			ft_rotate(head);
 			ft_write("ra \n");
 			data->ops++;
+			ft_check_if_pa(head, data);
 		//	printf("rot\n");
 		}
 	}
@@ -20,10 +24,13 @@ void	ft_put_lower_at_head(t_list **head, t_data *data)
 		while ((*head)->num != data->min) //data->lowest->num)
 		{
 		//	ft_print_stack(head);
+		ft_check_if_pa(head, data);
 			ft_rev_rot(head);
 			ft_write("rra");
 			ft_write("\n");
 			data->ops++;
+			ft_check_if_pa(head, data);
+
 		//	printf("rev_rot\n");
 		}
 	}
@@ -45,6 +52,140 @@ int	ft_nearest_wrong(t_list **head, t_data *data)
 	}
 	//printf("%d\n", x);
 	return (x);
+}
+
+int	ft_nearest_way_to_pa(t_list **head, t_data *data)
+{
+	t_list *tmp;
+	int		x;
+
+	tmp = *head;
+	x = 0;
+	data->tail = ft_get_tail(head, data->tail);
+	while (tmp->next)
+	{
+		if ((*data->b_head)->num > data->tail->num && (*data->b_head)->num < (*head)->num)
+			return (x);
+		x++;
+		tmp = tmp->next;
+	}
+	//printf("%d\n", x);
+	return (x);
+}
+
+void	ft_empty_b(t_list **head, t_data *data)
+{
+	//(void)head;
+	//(void)data;
+	int x;
+	x = ft_nearest_way_to_pa(head, data);
+	if (x < data->len/2)
+	{
+		while (*data->b_head) //data->lowest->num)
+		{
+		//	ft_print_stack(head);
+			ft_check_if_pa(head, data);
+			ft_rotate(head);
+			ft_write("ra \n");
+			data->ops++;
+			ft_check_if_pa(head, data);
+		//	printf("rot\n");
+		}
+	}
+	else
+	{
+		while (*data->b_head) //data->lowest->num)
+		{
+		//	ft_print_stack(head);
+		ft_check_if_pa(head, data);
+			ft_rev_rot(head);
+			ft_write("rra");
+			ft_write("\n");
+			data->ops++;
+			ft_check_if_pa(head, data);
+
+		//	printf("rev_rot\n");
+		}
+	}
+
+
+	while (*data->b_head)
+	{
+		ft_check_if_pa(head, data);
+		ft_rotate(head);
+		ft_write("ra \n");
+		data->ops++;
+		ft_check_if_pa(head, data);
+	}
+}
+
+void	ft_new_sort(t_list **head, t_data *data)
+{
+	data->ops = 0;
+int x = 0;
+while (!(ft_check_swap(data->head, data)))
+{
+	//x = 0;
+	while (x++ < 10000 && ft_keep_swapping(head, data))
+	{
+		ft_while_sorted(head, data);
+	//	if (ft_while_sorted(head, data))
+	//		return ;
+		data->tail = ft_get_tail(head, data->tail);
+		ft_move_wrong(head, data);
+	//printf("taill:%d\n", data->tail->num);
+	//return ;
+	//	if(*data->b_head)
+	//		ft_
+/*	printf("a:\n");
+			ft_print_stack(head);
+			printf("b:\n");
+			ft_print_stack(data->b_head);
+*/	}
+	if(*data->b_head)
+	{
+//		printf("\t\tdata->B_HEAD!!!!!!\n");
+	//	ft_put_lower_at_head(head, data);
+		ft_empty_b(head, data);
+	}
+/*	printf("a:\n");
+			ft_print_stack(head);
+			printf("b:\n");
+			ft_print_stack(data->b_head);
+	printf("x:%d\n", x);
+*/	if (x >= 10000)
+	{
+/*		printf("a:\n");
+			ft_print_stack(head);
+			printf("b:\n");
+			ft_print_stack(data->b_head);
+*/		printf("LOOOOOOOOPPPPporcooodiooo\n");
+		exit(0);
+	}
+	if ((*head)->num != data->min)
+		ft_put_lower_at_head(head, data);
+}
+	
+
+/*		printf("pre min a:\n");
+			ft_print_stack(head);
+			printf("pre min b:\n");
+			ft_print_stack(data->b_head);
+	ft_put_lower_at_head(head, data);	
+*/
+
+/*	while (!(ft_check_swap(head, data)))
+	{
+		if (ft_while_sorted(head, data))
+			return ;
+		data->tail = ft_get_tail(head, data->tail);
+		ft_move_wrong(head, data);
+		if (ft_keep_swapping(head, data))// && printf("keep_swap\n"))
+			continue ;
+	//printf("taill:%d\n", data->tail->num);
+		return ;
+	}
+*/
 }
 
 void	ft_find_med(t_list **head, t_data *data)
