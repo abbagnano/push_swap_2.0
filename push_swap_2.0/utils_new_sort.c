@@ -50,6 +50,7 @@ void	ft_move_wrong(t_list **head, t_data *data)
 			ft_push(head, data->b_head);
 			ft_write("pb \n");
 			data->ops++;
+			data->len--;
 			
 		}
 		else
@@ -90,6 +91,7 @@ void	ft_move_wrong(t_list **head, t_data *data)
 			ft_push(head, data->b_head);
 			ft_write("pb \n");
 			data->ops++;
+			data->len--;
 //			printf("post push su b:\n");
 //			ft_print_stack(data->b_head);
 //			printf("\n--\n");
@@ -120,11 +122,14 @@ void	ft_check_if_pa(t_list **head, t_data *data)			// controllare se si puo inse
 		ft_write("pa \n");
 		data->ops++;
 		x++;
+		data->len++;
 	}
 //	if (x)
 //		ft_check_if_pa(head, data);
 
 }
+
+
 
 int	ft_while_sorted(t_list **head, t_data *data)
 {

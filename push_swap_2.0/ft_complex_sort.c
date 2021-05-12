@@ -36,7 +36,7 @@ void	ft_put_lower_at_head(t_list **head, t_data *data)
 	}
 }
 
-int	ft_nearest_wrong(t_list **head, t_data *data)
+int	ft_nearest_wrong2(t_list **head, t_data *data)
 {
 	t_list *tmp;
 	int		x;
@@ -119,20 +119,107 @@ void	ft_empty_b(t_list **head, t_data *data)
 	}
 }
 
+int	ft_nearest_wrong(t_list **head, t_data *data)
+{
+	(void)data;
+	t_list *tmp;
+	int x = 1;
+
+	tmp = *head;
+
+//	if ((*data->b_head))
+//		return (1);
+//	if ((*head)->num != data->min && tmp->num > (*head)->num)
+//		return (1);
+	while (tmp->next)
+	{
+	//	printf("%d\t%d\n",tmp->num, tmp->next->num  );
+	//	if (tmp->next->num != data->min && tmp->num > tmp->next->num) 
+	//	{
+		//	printf("\n%d\t%d\n",tmp->num, tmp->next->num  );
+		//	ft_print_stack(&tmp);
+	//		return (1);
+	//	}
+	//	ft_check_if_pa(head, data);
+		if (tmp->num == data->max && tmp->next->num == data->min)
+		{
+			tmp = tmp->next;
+			x++;
+		}
+		if (tmp->num > tmp->next->num) 
+		{
+			return (x);
+		}
+		tmp = tmp->next;
+		x++;
+	}
+	if (tmp->num != data->max && tmp->num > (*head)->num)
+		return (x);
+//	printf("head: %d\tnum: tmp: %d\n", (*head)->num, tmp->num);
+//	if (tmp->num > (*head)->num && (*head)->num != data->min && tmp->num != data->max)
+//		return (1);
+//	printf("qwe\n");
+	return (0);
+}
+
+void	ft_while_rev_sort(t_list **head, t_data *data)
+{
+	data->tail = ft_get_tail(head, data->tail);
+	while ((*head)->num > data->tail->num)
+	{
+		ft_check_if_pa(head, data);
+	/*	if (data->flag_both)
+		{
+			ft_rotate(head);
+			ft_rotate(data->b_head);
+			ft_write("rr \n");
+			data->flag_both = 0;
+			printf("post flag b:\n");
+			ft_print_stack(data->b_head);
+		}
+		else
+		{
+	*/		ft_rev_rot(head);
+			ft_write("rra");
+			ft_write("\n");
+			data->ops++;
+	//	}
+//		if ((*head)->num == data->min && ft_check_swap(head, data) == 1)
+//			return (1);
+	}
+	ft_rev_rot(head);
+			ft_write("rra");
+			ft_write("\n");
+			data->ops++;
+	return ;
+}
+
 void	ft_new_sort(t_list **head, t_data *data)
 {
 	data->ops = 0;
 int x = 0;
-while (!(ft_check_swap(data->head, data)))
-{
+int way = 1;
+//while (!(ft_check_swap(data->head, data)))
+//{
 	//x = 0;
-	while (x++ < 10000 && ft_keep_swapping(head, data))
+//	while (x++ < 10000 && ft_keep_swapping(head, data))
+	while (way != 0)
 	{
-		ft_while_sorted(head, data);
+		
+		
+		if (way == 0)
+			break ;
+		else if (way < data->len / 2)
+			ft_while_sorted(head, data);
+		else
+			ft_while_rev_sort(head, data);
 	//	if (ft_while_sorted(head, data))
 	//		return ;
 		data->tail = ft_get_tail(head, data->tail);
 		ft_move_wrong(head, data);
+		way = ft_nearest_wrong(head, data);
+	//	printf("way: %d\n", way);
+	}
 	//printf("taill:%d\n", data->tail->num);
 	//return ;
 	//	if(*data->b_head)
@@ -141,7 +228,7 @@ while (!(ft_check_swap(data->head, data)))
 			ft_print_stack(head);
 			printf("b:\n");
 			ft_print_stack(data->b_head);
-*/	}
+*/	
 	if(*data->b_head)
 	{
 //		printf("\t\tdata->B_HEAD!!!!!!\n");
@@ -158,7 +245,7 @@ while (!(ft_check_swap(data->head, data)))
 			printf("b:\n");
 			ft_print_stack(data->b_head);
 	printf("x:%d\n", x);
-*/	if (x >= 10000)
+*/	if (x >= 1000)
 	{
 /*		printf("a:\n");
 			ft_print_stack(head);
@@ -169,7 +256,7 @@ while (!(ft_check_swap(data->head, data)))
 	}
 	if ((*head)->num != data->min)
 		ft_put_lower_at_head(head, data);
-}
+
 }
 
 void	ft_new_sort2(t_list **head, t_data *data)

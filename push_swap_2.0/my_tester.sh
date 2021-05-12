@@ -6,7 +6,7 @@ make re
 
 #ARG=$( cat test.txt)
 
-ARG=$( jot -r $1 -99 9999 )
+ARG=$( jot -r $1 -999 9999 )
 
 ./push_swap $ARG #| ./checker $ARG
 
