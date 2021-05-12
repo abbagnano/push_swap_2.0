@@ -7,7 +7,7 @@ void	ft_init_pos(t_list **head)
 	tmp = *head;
 	while (tmp)
 	{
-		tmp->pos = 0;
+		tmp->pos = 1;
 		tmp = tmp->next;
 	}
 }

@@ -195,8 +195,9 @@ int main(int ac, char **av)
 //		printf("pre head:\n");
 //ft_print_stack(data.head);
 //	if (data.len >= 10)
-printf("len: %d\n", data.len);
-		ft_new_sort(data.head, &data);
+//printf("len: %d\n", data.len);
+		ft_sort_pos(&data);
+//		ft_new_sort(data.head, &data);
 //		ft_find_med(data.head, &data);
 //	else
 //		ft_push_swap(&data);

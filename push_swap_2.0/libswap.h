@@ -76,6 +76,8 @@ t_list	*ft_get_tail(t_list **head, t_list *tail);
 void	ft_move_wrong(t_list **head, t_data *data);
 void	ft_check_if_pa(t_list **head, t_data *data);
 
+void	ft_sort_pos(t_data *data);
+
 #endif
 
 
