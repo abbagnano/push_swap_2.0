@@ -215,15 +215,17 @@ int	ft_keep_swapping(t_list **head, t_data *data)
 	//		return (1);
 	//	}
 	//	ft_check_if_pa(head, data);
-		
+		if (tmp->num == data->max && tmp->next->num == data->min)
+			tmp = tmp->next;
 		if (tmp->num > tmp->next->num) 
 		{
-			if (tmp->num == data->max && tmp->next->num == data->min)
-				return (0);
+			
 			return (1);
 		}
 		tmp = tmp->next;
 	}
+	if (tmp->num != data->max && tmp->num > (*head)->num)
+		return (1);
 //	printf("head: %d\tnum: tmp: %d\n", (*head)->num, tmp->num);
 //	if (tmp->num > (*head)->num && (*head)->num != data->min && tmp->num != data->max)
 //		return (1);

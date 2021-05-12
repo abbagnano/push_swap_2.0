@@ -15,7 +15,7 @@ void	ft_put_lower_at_head(t_list **head, t_data *data)
 			ft_rotate(head);
 			ft_write("ra \n");
 			data->ops++;
-			ft_check_if_pa(head, data);
+		//	ft_check_if_pa(head, data);
 		//	printf("rot\n");
 		}
 	}
@@ -29,7 +29,7 @@ void	ft_put_lower_at_head(t_list **head, t_data *data)
 			ft_write("rra");
 			ft_write("\n");
 			data->ops++;
-			ft_check_if_pa(head, data);
+		//	ft_check_if_pa(head, data);
 
 		//	printf("rev_rot\n");
 		}
@@ -88,7 +88,7 @@ void	ft_empty_b(t_list **head, t_data *data)
 			ft_rotate(head);
 			ft_write("ra \n");
 			data->ops++;
-			ft_check_if_pa(head, data);
+		//	ft_check_if_pa(head, data);
 		//	printf("rot\n");
 		}
 	}
@@ -102,7 +102,7 @@ void	ft_empty_b(t_list **head, t_data *data)
 			ft_write("rra");
 			ft_write("\n");
 			data->ops++;
-			ft_check_if_pa(head, data);
+		//	ft_check_if_pa(head, data);
 
 		//	printf("rev_rot\n");
 		}
@@ -115,7 +115,7 @@ void	ft_empty_b(t_list **head, t_data *data)
 		ft_rotate(head);
 		ft_write("ra \n");
 		data->ops++;
-		ft_check_if_pa(head, data);
+	//	ft_check_if_pa(head, data);
 	}
 }
 
@@ -145,7 +145,65 @@ while (!(ft_check_swap(data->head, data)))
 	if(*data->b_head)
 	{
 //		printf("\t\tdata->B_HEAD!!!!!!\n");
+	printf("mosse: %d\na:\n", data->ops);
+			ft_print_stack(head);
+			printf("b:\n");
+			ft_print_stack(data->b_head);
 	//	ft_put_lower_at_head(head, data);
+	exit(0);
+		ft_empty_b(head, data);
+	}
+/*	printf("a:\n");
+			ft_print_stack(head);
+			printf("b:\n");
+			ft_print_stack(data->b_head);
+	printf("x:%d\n", x);
+*/	if (x >= 10000)
+	{
+/*		printf("a:\n");
+			ft_print_stack(head);
+			printf("b:\n");
+			ft_print_stack(data->b_head);
+*/		printf("LOOOOOOOOPPPPporcooodiooo\n");
+		exit(0);
+	}
+	if ((*head)->num != data->min)
+		ft_put_lower_at_head(head, data);
+}
+}
+
+void	ft_new_sort2(t_list **head, t_data *data)
+{
+	data->ops = 0;
+int x = 0;
+while (!(ft_check_swap(data->head, data)))
+{
+	//x = 0;
+	while (x++ < 10000 && ft_keep_swapping(head, data))
+	{
+		ft_while_sorted(head, data);
+	//	if (ft_while_sorted(head, data))
+	//		return ;
+		data->tail = ft_get_tail(head, data->tail);
+		ft_move_wrong(head, data);
+	//printf("taill:%d\n", data->tail->num);
+	//return ;
+	//	if(*data->b_head)
+	//		ft_
+/*	printf("a:\n");
+			ft_print_stack(head);
+			printf("b:\n");
+			ft_print_stack(data->b_head);
+*/	}
+	if(*data->b_head)
+	{
+//		printf("\t\tdata->B_HEAD!!!!!!\n");
+	printf("mosse: %d\na:\n", data->ops);
+			ft_print_stack(head);
+			printf("b:\n");
+			ft_print_stack(data->b_head);
+	//	ft_put_lower_at_head(head, data);
+	exit(0);
 		ft_empty_b(head, data);
 	}
 /*	printf("a:\n");

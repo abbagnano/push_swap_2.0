@@ -112,13 +112,17 @@ t_list	*ft_get_tail(t_list **head, t_list *tail)
 
 void	ft_check_if_pa(t_list **head, t_data *data)			// controllare se si puo inserire b_head durante ra!
 {
+	int x = 0;
 	data->tail = ft_get_tail(head, data->tail);
 	if (*data->b_head && (*data->b_head)->num > data->tail->num && (*data->b_head)->num < (*head)->num)
 	{
 		ft_push(data->b_head, head);
 		ft_write("pa \n");
 		data->ops++;
+		x++;
 	}
+//	if (x)
+//		ft_check_if_pa(head, data);
 
 }
 
@@ -140,6 +144,7 @@ int	ft_while_sorted(t_list **head, t_data *data)
 		{
 	*/		ft_rotate(head);
 			ft_write("ra \n");
+			data->ops++;
 	//	}
 //		if ((*head)->num == data->min && ft_check_swap(head, data) == 1)
 //			return (1);
