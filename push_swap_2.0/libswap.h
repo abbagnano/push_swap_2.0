@@ -21,6 +21,7 @@
 typedef struct  s_list
 {
 	int num;
+	int pos;
 	struct s_list *next;
 }               t_list;
 

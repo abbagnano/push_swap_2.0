@@ -204,9 +204,7 @@ int way = 1;
 	//x = 0;
 //	while (x++ < 10000 && ft_keep_swapping(head, data))
 	while (way != 0)
-	{
-		
-		
+	{		
 		if (way == 0)
 			break ;
 		else if (way < data->len / 2)

@@ -1,5 +1,32 @@
 #include "libswap.h"
 
+void	ft_init_pos(t_list **head)
+{
+	t_list *tmp;
+
+	tmp = *head;
+	while (tmp)
+	{
+		tmp->pos = 0;
+		tmp = tmp->next;
+	}
+}
+
+void	ft_check_pos(t_data *data, int num)
+{
+	t_list *tmp;
+
+	tmp = *data->head;
+	while (tmp)
+	{
+		if (tmp->num > num)
+		{
+			tmp->pos++;
+		}
+		tmp = tmp->next;
+	}
+}
+
 void	ft_get_range(t_data *data)
 {
 //	int min;
@@ -19,6 +46,8 @@ void	ft_get_range(t_data *data)
 	data->max = tmp->num;
 //	data->med = 0;
 //	data->zxc = 0;
+
+	ft_init_pos(data->head);
 	while (tmp)
 	{
 		if (tmp->num > data->max)//data->maxest->num)
@@ -37,6 +66,7 @@ void	ft_get_range(t_data *data)
 //		data->zxc = (data->zxc + tmp->num) / 2;
 //		data->med += tmp->num;
 		//tmp->pos = 1;
+		ft_check_pos(data, tmp->num);
 		tmp = tmp->next;
 		data->len++;
 	}
