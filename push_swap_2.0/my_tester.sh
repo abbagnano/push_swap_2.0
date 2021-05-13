@@ -8,6 +8,8 @@ make re
 
 ARG=$( jot -r $1 -999 9999 )
 
+echo $ARG
+
 ./push_swap $ARG #| ./checker $ARG
 
 rm -rf a.out 

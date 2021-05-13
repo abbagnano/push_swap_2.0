@@ -1,6 +1,6 @@
 #include "libswap.h"
 
-void	ft_swap(t_list **head) //t_data *data)
+int	ft_swap(t_list **head) //t_data *data)
 {
 //	printf("\tft_swapping\n");
 //	int	tmp;
@@ -10,7 +10,7 @@ t_list	*old_second;
 	if (!(head) || !(*head) || !((*head)->next))
 	{
 		//printf("qwe\n");
-		return ;
+		return (0);
 	}
 	old_first = *head;
 //	old_first->next = (*head)->next->next;
@@ -30,6 +30,7 @@ t_list	*old_second;
 //	(*head)->num = (*head)->next->num;
 //	(*head)->next->num = tmp;
 //ft_print_stack(head);
+	return (1);
 }
 
 void	ft_push(t_list **topush, t_list **head)
@@ -56,7 +57,7 @@ void	ft_push(t_list **topush, t_list **head)
 	ft_print_stack(head);*/
 }
 
-void	ft_rotate(t_list **head)
+int	ft_rotate(t_list **head)
 {
 //	printf("\tft_rotating\n");
 //	t_list	*old_first;
@@ -67,7 +68,7 @@ void	ft_rotate(t_list **head)
 	if (!(head) || !(*head) || !(*head)->next)
 	{
 		//printf("qwe\n");
-		return ;
+		return (0);
 	}
 	t_list *last;
 	t_list *tmp;
@@ -81,6 +82,8 @@ void	ft_rotate(t_list **head)
 	last->next = *head; //tmp;
 	last->next->next = NULL;
 	*head = tmp;
+
+	return (1);
 
 /*	while (last->next->next)			/// fa rev_rot!!!
 		last = last->next;
@@ -145,7 +148,7 @@ void	ft_rotate(t_list **head)
 //ft_print_stack(head);
 }
 
-void	ft_rev_rot(t_list **head)
+int	ft_rev_rot(t_list **head)
 {
 	//printf("\tft_rev_rotating\n");
 	t_list	*last;
@@ -154,7 +157,7 @@ void	ft_rev_rot(t_list **head)
 	if (!(head) || !(*head) || !((*head)->next))
 	{
 		//printf("qwe\n");
-		return ;
+		return (0);
 	}
 	last = *head;
 	while (last->next->next)
@@ -166,7 +169,7 @@ void	ft_rev_rot(t_list **head)
 	tmp->next = *head;
 	*head = tmp; 
 
-
+	return (1);
 
 /*	t_list	*tmp;
 	t_list	*new;

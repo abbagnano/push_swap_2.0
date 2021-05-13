@@ -39,6 +39,7 @@ typedef struct s_data
 	int		ops;
 //	int		flag_both;
 	int			b_min;
+	int		x;
 //	long long	zxc;
 //	long long med;
 //	long long qwe;
@@ -51,10 +52,10 @@ typedef struct s_data
 
 
 
-void	ft_swap(t_list **head);
+int	ft_swap(t_list **head);
 void	ft_push(t_list **topush, t_list **head);
-void	ft_rotate(t_list **head);
-void	ft_rev_rot(t_list **head);
+int	ft_rotate(t_list **head);
+int	ft_rev_rot(t_list **head);
 
 void	ft_add_num(long int tot, t_list **head, t_data *data);
 
@@ -76,7 +77,11 @@ t_list	*ft_get_tail(t_list **head, t_list *tail);
 void	ft_move_wrong(t_list **head, t_data *data);
 void	ft_check_if_pa(t_list **head, t_data *data);
 
-void	ft_sort_pos(t_data *data);
+void	ft_sort_by_pos(t_data *data);
+int	ft_bubble_sort(t_list **head, t_data *data);
+
+void	ft_empty_b(t_list **head, t_data *data);
+int	ft_third_try(t_data *data);
 
 #endif
 

@@ -138,7 +138,7 @@ void    ft_print_stack(t_list **head)
 	 while (stack != NULL)
 	{
 		printf("=== %d\t\tp: %d\n", stack->num, stack->pos);
-
+	//	printf("===\t %d\n", stack->pos);
 	//	ft_write(ft_itoa(stack->num));
 		stack = stack->next;
 	}
@@ -196,7 +196,12 @@ int main(int ac, char **av)
 //ft_print_stack(data.head);
 //	if (data.len >= 10)
 //printf("len: %d\n", data.len);
-		ft_sort_pos(&data);
+//if (data.len > 9)
+		ft_sort_by_pos(&data);
+//else
+//	ft_new_sort(data.head, &data);
+//ft_push_swap(&data);   // ogni tanto va in seg!!!
+	//ft_bubble_sort(data.head, &data);
 //		ft_new_sort(data.head, &data);
 //		ft_find_med(data.head, &data);
 //	else

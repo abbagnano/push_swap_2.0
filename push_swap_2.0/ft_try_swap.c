@@ -225,43 +225,7 @@ int		ft_first_try(t_data *data)
 	return (data->ops);
 }
 
-int	ft_keep_swapping(t_list **head, t_data *data)
-{
-	t_list *tmp;
 
-	tmp = *head;
-	(void)data;
-//	if ((*data->b_head))
-//		return (1);
-//	if ((*head)->num != data->min && tmp->num > (*head)->num)
-//		return (1);
-	while (tmp->next)
-	{
-	//	printf("%d\t%d\n",tmp->num, tmp->next->num  );
-	//	if (tmp->next->num != data->min && tmp->num > tmp->next->num) 
-	//	{
-		//	printf("\n%d\t%d\n",tmp->num, tmp->next->num  );
-		//	ft_print_stack(&tmp);
-	//		return (1);
-	//	}
-	//	ft_check_if_pa(head, data);
-		if (tmp->num == data->max && tmp->next->num == data->min)
-			tmp = tmp->next;
-		if (tmp->num > tmp->next->num) 
-		{
-			
-			return (1);
-		}
-		tmp = tmp->next;
-	}
-	if (tmp->num != data->max && tmp->num > (*head)->num)
-		return (1);
-//	printf("head: %d\tnum: tmp: %d\n", (*head)->num, tmp->num);
-//	if (tmp->num > (*head)->num && (*head)->num != data->min && tmp->num != data->max)
-//		return (1);
-//	printf("qwe\n");
-	return (0);
-}
 
 int	ft_second_try(t_data *data)
 {
@@ -323,10 +287,10 @@ int	ft_third_try(t_data *data)
 {
 	
 
-	data->ops = 0;
+//	data->ops = 0;
 	while (!(ft_check_swap(data->head, data)))// && (*data->b_head))
 	{
-		if (data->len > 4 && (*data->head)->next->num == data->max && (*data->head)->num == data->min)
+		if (data->len >= 4 && (*data->head)->next->num == data->max && (*data->head)->num == data->min)
 		{
 			ft_swap(data->head);
 			ft_write("sa \n");

@@ -64,7 +64,7 @@ int	ft_nearest_way_to_pa(t_list **head, t_data *data)
 	data->tail = ft_get_tail(head, data->tail);
 	while (tmp->next)
 	{
-		if ((*data->b_head)->num > data->tail->num && (*data->b_head)->num < (*head)->num)
+		if ((*data->b_head) && (*data->b_head)->num > data->tail->num && (*data->b_head)->num < (*head)->num)
 			return (x);
 		x++;
 		tmp = tmp->next;
@@ -88,7 +88,7 @@ void	ft_empty_b(t_list **head, t_data *data)
 			ft_rotate(head);
 			ft_write("ra \n");
 			data->ops++;
-		//	ft_check_if_pa(head, data);
+			ft_check_if_pa(head, data);
 		//	printf("rot\n");
 		}
 	}
@@ -108,7 +108,7 @@ void	ft_empty_b(t_list **head, t_data *data)
 		}
 	}
 
-
+/*
 	while (*data->b_head)
 	{
 		ft_check_if_pa(head, data);
@@ -117,7 +117,7 @@ void	ft_empty_b(t_list **head, t_data *data)
 		data->ops++;
 	//	ft_check_if_pa(head, data);
 	}
-}
+*/}
 
 int	ft_nearest_wrong(t_list **head, t_data *data)
 {
@@ -214,7 +214,7 @@ int way = 1;
 	//	if (ft_while_sorted(head, data))
 	//		return ;
 		data->tail = ft_get_tail(head, data->tail);
-		ft_move_wrong(head, data);
+		  
 		way = ft_nearest_wrong(head, data);
 	//	printf("way: %d\n", way);
 	}

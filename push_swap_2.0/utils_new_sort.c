@@ -107,7 +107,9 @@ void	ft_move_wrong(t_list **head, t_data *data)
 t_list	*ft_get_tail(t_list **head, t_list *tail)
 {
 	tail = *head;
-	while (tail->next)
+	printf("\n\n\tpost a:\n");
+	ft_print_stack(head);
+	while (tail->next) //&& printf("dooh.. \n"))
 		tail = tail->next;
 	return (tail);
 }
@@ -122,14 +124,52 @@ void	ft_check_if_pa(t_list **head, t_data *data)			// controllare se si puo inse
 		ft_write("pa \n");
 		data->ops++;
 		x++;
-		data->len++;
+		//data->len++;
 	}
-//	if (x)
-//		ft_check_if_pa(head, data);
+	if (x)
+		ft_check_if_pa(head, data);
 
 }
 
+int	ft_keep_swapping(t_list **head, t_data *data)
+{
+	t_list *tmp;
 
+	tmp = *head;
+	(void)data;
+//	if ((*data->b_head))
+//		return (1);
+//	if ((*head)->num != data->min && tmp->num > (*head)->num)
+//		return (1);
+	while (tmp->next)
+	{
+	//	printf("%d\t%d\n",tmp->num, tmp->next->num  );
+	//	if (tmp->next->num != data->min && tmp->num > tmp->next->num) 
+	//	{
+		//	printf("\n%d\t%d\n",tmp->num, tmp->next->num  );
+		//	ft_print_stack(&tmp);
+	//		return (1);
+	//	}
+	//	ft_check_if_pa(head, data);
+		if (tmp->num == data->max && tmp->next->num == data->min)
+			tmp = tmp->next;
+		if (tmp->next && tmp->num > tmp->next->num) 
+		{
+			
+			return (1);
+		}
+		if (!tmp->next)
+			break ;
+		tmp = tmp->next;
+	}
+	if (tmp->num != data->max && tmp->num > (*head)->num)
+		return (1);
+//	printf("head: %d\tnum: tmp: %d\n", (*head)->num, tmp->num);
+//	if (tmp->num > (*head)->num && (*head)->num != data->min && tmp->num != data->max)
+//		return (1);
+//	printf("qwe\n");
+	return (0);
+}
 
 int	ft_while_sorted(t_list **head, t_data *data)
 {
@@ -147,9 +187,11 @@ int	ft_while_sorted(t_list **head, t_data *data)
 		}
 		else
 		{
-	*/		ft_rotate(head);
-			ft_write("ra \n");
-			data->ops++;
+	*/		if (ft_rotate(head))
+			{
+				ft_write("ra \n");
+				data->ops++;
+			}
 	//	}
 //		if ((*head)->num == data->min && ft_check_swap(head, data) == 1)
 //			return (1);
