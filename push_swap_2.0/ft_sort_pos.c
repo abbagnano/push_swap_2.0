@@ -284,6 +284,14 @@ void	ft_halfing_stack(t_list **head, t_list **dst_head, int min_pos, t_data *dat
 	}
 }
 
+void	ft_sort_five(t_list **head, int min_pos)
+{
+	int len;
+
+	len = ft_listlen(head, )
+	while (!ft_check_local_sort(head, min_pos, min_pos))
+}
+
 void	ft_start_halfing(t_list **head, t_list **dst_head, t_data *data)
 {
 	int len;
@@ -307,10 +315,7 @@ void	ft_start_halfing(t_list **head, t_list **dst_head, t_data *data)
 	ft_sort_five(head);
 }
 
-void	ft_sort_five(t_data *data)
-{
-	while (!ft_check_local_sort())
-}
+
 
 void	ft_sort_by_pos(t_data *data)
 {
