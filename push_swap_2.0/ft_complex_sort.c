@@ -4,31 +4,35 @@
 
 //make re && clear && ./push_swap 1 5 2 44 4 3 0 10 11 22 -9 -8 
 
-void	ft_put_lower_at_head(t_list **head, t_data *data)
+void	ft_put_lower_at_head(t_list **head, t_data *data, int min)
 {
-	if (ft_find_lower(head, data) < data->len/2)
+	if (ft_find_lower(head, data, min) <= data->len/2)
 	{
-		while ((*head)->num != data->min) //data->lowest->num)
+		while ((*head)->pos != min) //data->lowest->num)
 		{
 		//	ft_print_stack(head);
-			ft_check_if_pa(head, data);
-			ft_rotate(head);
-			ft_write("ra \n");
-			data->ops++;
+		//	ft_check_if_pa(head, data);
+			if (ft_rotate(head))
+			{
+				ft_write("ra \n");
+				data->ops++;
+			}
 		//	ft_check_if_pa(head, data);
 		//	printf("rot\n");
 		}
 	}
 	else
 	{
-		while ((*head)->num != data->min) //data->lowest->num)
+		while ((*head)->pos != min) //data->lowest->num)
 		{
 		//	ft_print_stack(head);
-		ft_check_if_pa(head, data);
-			ft_rev_rot(head);
-			ft_write("rra");
-			ft_write("\n");
-			data->ops++;
+		//ft_check_if_pa(head, data);
+			if(ft_rev_rot(head))
+			{
+				ft_write("rra");
+				ft_write("\n");
+				data->ops++;
+			}
 		//	ft_check_if_pa(head, data);
 
 		//	printf("rev_rot\n");
@@ -252,8 +256,7 @@ int way = 1;
 */		printf("LOOOOOOOOPPPPporcooodiooo\n");
 		exit(0);
 	}
-	if ((*head)->num != data->min)
-		ft_put_lower_at_head(head, data);
+	
 
 }
 
@@ -306,7 +309,7 @@ while (!(ft_check_swap(data->head, data)))
 		exit(0);
 	}
 	if ((*head)->num != data->min)
-		ft_put_lower_at_head(head, data);
+		ft_put_lower_at_head(head, data, data->min);
 }
 	
 
@@ -378,7 +381,7 @@ void	ft_find_med(t_list **head, t_data *data)
 		}
 		if (ft_keep_swapping(head, data))// && printf("keep_swap\n"))
 			continue ;
-		ft_put_lower_at_head(head, data);	
+		ft_put_lower_at_head(head, data, data->min);	
 	}
 	
 }

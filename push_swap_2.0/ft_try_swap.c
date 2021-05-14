@@ -70,6 +70,8 @@ void	ft_get_range(t_data *data)
 		tmp = tmp->next;
 		data->len++;
 	}
+
+//	return ;
 //	data->med = data->med / data->len;
 //	data->qwe = (data->min + data->max) / 2;
 	//tmp = *data->head;
@@ -265,15 +267,16 @@ int	ft_second_try(t_data *data)
 	return (data->ops);
 }
 
-int ft_find_lower(t_list **head, t_data *data)
+int ft_find_lower(t_list **head, t_data *data, int min)
 {
 //	ft_print_stack(data->head);
+	(void)data;
 	t_list *tmp;
 	int x;
 
 	tmp = *head;
 	x = 0;
-	while (tmp && tmp->num != data->min)
+	while (tmp && tmp->pos != min)
 	{
 		tmp = tmp->next;
 		x++;
@@ -315,7 +318,7 @@ int	ft_third_try(t_data *data)
 		data->ops++;
 		if (ft_keep_swapping(data->head, data))
 			continue ;
-		if (ft_find_lower(data->head, data) < data->len/2)
+		if (ft_find_lower(data->head, data, 1) < data->len/2)
 		{
 			while ((*data->head)->num != data->min) //data->lowest->num)
 			{

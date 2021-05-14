@@ -64,7 +64,7 @@ int	ft_bubble_sort(t_list **head, t_data *data)
 	exit (0);
 //		if (ft_keep_swapping(head, data))
 //			continue ;
-		if (ft_find_lower(head, data) < data->len/2)
+		if (ft_find_lower(head, data, 1) < data->len/2)
 		{
 			while ((*head)->num != data->min) //data->lowest->num)
 			{
@@ -236,7 +236,7 @@ int	ft_listlen(t_list **head, int *min_pos)
 	tmp = *head;
 	x = 0;
 	*min_pos = tmp->pos;
-	while (tmp)
+	while (tmp && tmp->pos > 0)
 	{
 		if (tmp->pos < *min_pos)
 			*min_pos = tmp->pos;
@@ -255,19 +255,41 @@ void	ft_halfing_stack(t_list **head, t_list **dst_head, int min_pos, t_data *dat
 
 	x = 0;
 	len = ft_listlen(head, &min_pos);
-	printf("len: %d\n", len);
-	printf("min_pos: %d\n", min_pos);
+//	printf("len: %d\n", len);
+//	printf("min_pos: %d\n", min_pos);
 	med = min_pos + len / 2;
-	printf("med: %d\n", med);
-	while (x < len / 2 )
+//	printf("med: %d\n", med);
+	while (x < len / 2) //&& ft_keep_swapping(head, data))
 	{
-//		printf("x: %d\t pos: %d\n", x, (*head)->pos);
+		//if (!ft_keep_swapping(head, data))
+		//	return ;
+	//	printf("x: %d\t pos: %d\n", x, (*head)->pos);
 		if ((*head)->pos < med)
 		{
-			x++;
+			if ((*head)->next->pos < med && (*head)->next->pos < (*head)->pos)//(*head)->next->pos == (*head)->pos - 1)// && (*head)->next->pos != min_pos)
+			{
+				ft_swap(head);
+				ft_write("sa \n");
+				data->ops++;
+			//	ft_push(head, dst_head);
+			//	ft_write("pb \n");
+			//	data->ops += 2;
+			//	x++;
+			}
 			ft_push(head, dst_head);
 			ft_write("pb \n");
 			data->ops++;
+			x++;
+			if ((*dst_head)->next && (*dst_head)->next->pos > (*dst_head)->pos)//  && (*head)->next->pos != min_pos)
+			{
+				ft_swap(dst_head);
+				ft_write("sb \n");
+				data->ops++;
+			//	ft_push(head, dst_head);
+			//	ft_write("pb \n");
+			//	data->ops += 2;
+			//	x++;
+			}
 		//	printf("\tb:\n");
 		//	ft_print_stack(data->b_head);
 		//	printf("x: %d\t pos: %d\n", x, (*head)->pos);
@@ -275,6 +297,20 @@ void	ft_halfing_stack(t_list **head, t_list **dst_head, int min_pos, t_data *dat
 		}
 		else
 		{
+			if ((*head)->next->pos >= med && (*head)->next->pos == (*head)->pos - 1)
+			{
+				ft_swap(head);
+				ft_write("sa \n");
+				data->ops++;
+			//	ft_rotate(head);
+			//	ft_write("ra \n");
+			//	data->ops += 2;
+			}
+		//	else
+		//	{
+		//		printf("a_head: %d\t a_head->next: %d\n", (*data->head)->pos , (*data->head)->next->pos);
+//
+//			}
 			if (ft_rotate(head))
 			{
 				ft_write("ra \n");
@@ -283,7 +319,7 @@ void	ft_halfing_stack(t_list **head, t_list **dst_head, int min_pos, t_data *dat
 		}
 	}
 }
-
+/*
 void	ft_sort_five(t_list **head, int min_pos)
 {
 	int len;
@@ -291,43 +327,280 @@ void	ft_sort_five(t_list **head, int min_pos)
 	len = ft_listlen(head, )
 	while (!ft_check_local_sort(head, min_pos, min_pos))
 }
-
+*/
 void	ft_start_halfing(t_list **head, t_list **dst_head, t_data *data)
 {
 	int len;
 	int min_pos;
 
 	len = ft_listlen(head, &min_pos);
+//	printf("111 ft_keep_sw: %d\n", ft_keep_swapping(head, data));
+//	printf("ft_loc_sort: %d\n", ft_check_local_sort(head, min_pos, min_pos + len));
+//	return ;
 //	min_pos = 0;
-	while (len > 6)
+	while (len > 2 && ft_keep_swapping(data->head, data)) //(len > 6)
 	{
 	//	printf("DOOHHH\n");
+		if (*dst_head)
+			(*dst_head)->pos *= -1;
 		ft_halfing_stack(head, dst_head, min_pos, data);
 		len = ft_listlen(head, &min_pos);
-		printf("len: %d\n", len);
-	
+	//	printf("len: %d\n", len);
+//		printf("\n\n\twhile a:\n");
+//	ft_print_stack(data->head);
+//	printf("\twhile b:\n");
+//	ft_print_stack(data->b_head);
 	}
+/*	printf("mosse: %d\n", data->ops);
+	printf("\n\n\tpost a:\n");
+	ft_print_stack(data->head);
+	printf("\tpost b:\n");
+	ft_print_stack(data->b_head);
+*///	printf("ft_keep_sw: %d\n", ft_keep_swapping(head, data));
+//printf("qwasdasde\n");
+	if (/*!ft_keep_swapping(data->head, data) && */(*data->head)->num != min_pos)
+	{
+		ft_put_lower_at_head(data->head, data, min_pos);
+//		printf("qwe\n");
+	}
+	
+	//ft_sort_five(head);
+}
+
+int ft_find_next_pa(t_list **head, int next)
+{
+	t_list *tmp;
+	int x;
+
+	x = 0;
+	tmp = *head;
+	while (++x && tmp)
+	{
+		if (tmp->pos < 0 && -tmp->pos == next)
+			return (x);
+		else if (tmp->pos == next)
+			return (x);
+		tmp = tmp->next;
+	}
+//	while (++x && tmp->pos != next)
+//		tmp = tmp->next;
+	printf("xxxxxx : %d\n", x);
+	return (x);
+
+}
+
+void	ft_push_back(t_data *data)
+{
+	while (/*(*data->b_head)->pos > 0 && */(*data->b_head) && (*data->b_head)->pos < (*data->head)->pos)
+	{
+		///printf("xxxxxx\n");
+		if ((*data->b_head)->pos < 0 && -(*data->b_head)->pos == (*data->head)->pos - 1)
+				(*data->b_head)->pos *= -1;
+		if ((*data->b_head)->pos == (*data->head)->pos - 1)
+		{
+			//if ((*data->b_head)->pos < 0)
+			//	(*data->b_head)->pos *= -1;
+			ft_push(data->b_head, data->head);
+			ft_write("pa \n");
+			data->ops++;
+		}
+		else //if ((*data->b_head)->pos == (*data->head)->pos - 2)
+		{
+			//printf("a_head: %d\t b_head: %d\n", (*data->head)->pos , (*data->b_head)->pos);
+			int x = ft_find_next_pa(data->b_head, (*data->head)->pos - 1);
+		//	printf("xxxxxx : %d\n", x);
+		//	break ;
+			if (x == 2 && (*data->b_head)->next && (*data->b_head)->next->pos == (*data->head)->pos - 1)
+			{
+				ft_swap(data->b_head);
+				ft_write("sb \n");
+				data->ops++;
+			//	printf("post_sb\t a_head: %d\t b_head: %d\n", (*data->head)->pos , (*data->b_head)->pos);
+			}
+			else
+			{
+				if (!(*data->b_head)->next)
+					return ;
+				printf("\nelse break a_head: %d\t b_head: %d\t", (*data->head)->pos , (*data->b_head)->pos);
+				printf("b_head->next: %d\n", (*data->b_head)->next->pos);
+				printf("else break xxxxx : %d\n", x);
+				break ;
+			}
+		//	printf("a_head: %d\t b_head: %d\n", (*data->head)->pos , (*data->b_head)->pos);
+		//	ft_push(data->b_head, data->head);
+		//	ft_write("pa \n");
+		//	data->ops++;
+		}
+	}
+
+}
+
+void	ft_halfing_stack_rev(t_list **head, t_list **dst_head, int min_pos, t_data *data)
+{
+	int x;
+	int med;
+	int len;
+	int	back;
+
+
+	x = 0;
+	back = 0;
+	len = ft_listlen(head, &min_pos);
+	med = min_pos + len / 2;
+	printf("len : %d\tmed: %d\n", len, med);
+	while (x < len / 2 ) //&& ft_keep_swapping(head, data))
+	{
+		//if (!ft_keep_swapping(head, data))
+		//	return ;
+		printf("x: %d\t pos: %d\n", x, (*head)->pos);
+		printf("len/2: %d\n", len /2);
+		if ((*head) && (*head)->pos >= med)
+		{
+			if ((*head)->next && (*head)->next->pos > med && (*head)->next->pos > (*head)->pos)//(*head)->next->pos == (*head)->pos - 1)// && (*head)->next->pos != min_pos)
+			{
+				ft_swap(head);
+				ft_write("sb \n");
+				data->ops++;
+			//	ft_push(head, dst_head);
+			//	ft_write("pb \n");
+			//	data->ops += 2;
+			//	x++;
+			}
+			ft_push(head, dst_head);
+			ft_write("pa \n");
+			data->ops++;
+			x++;
+			if ((*dst_head)->next && (*dst_head)->next->pos > 0 && (*dst_head)->next->pos < (*dst_head)->pos)//  && (*head)->next->pos != min_pos)
+			{
+				ft_swap(dst_head);
+				ft_write("sa \n");
+				data->ops++;
+			//	ft_push(head, dst_head);
+			//	ft_write("pb \n");
+			//	data->ops += 2;
+			//	x++;
+			}
+		//	printf("\tb:\n");
+		//	ft_print_stack(data->b_head);
+		//	printf("x: %d\t pos: %d\n", x, (*head)->pos);
+		//	exit(0);		
+		}
+		else
+		{
+			if ((*head)->next && (*head)->next->pos <= med && ((*head)->next->pos == (*head)->pos + 1 ))//|| -(*head)->next->pos == (*head)->pos + 1))
+			{
+				ft_swap(head);
+				ft_write("sb \n");
+				data->ops++;
+			//	ft_rotate(head);
+			//	ft_write("ra \n");
+			//	data->ops += 2;
+			}
+		//	else
+		//	{
+		//		printf("a_head: %d\t a_head->next: %d\n", (*data->head)->pos , (*data->head)->next->pos);
+//
+//			}
+			if (ft_rotate(head))
+			{
+				ft_write("rb \n");
+				data->ops++;
+				back++;
+			}
+		}
+	}
+	while (back)
+	{
+		if (ft_rev_rot(head))
+			{
+				ft_write("rrb");
+				ft_write("\n");
+				data->ops++;
+				back--;
+			}
+	}
+
+//	printf("\tb:\n");
+}
+
+void	ft_halfing_back(t_list **head, t_list **dst_head, t_data *data)
+{
+
+	printf("DOOHHH - HALFINGGG BACK\n");
+	int len;
+	int min_pos;
+
+	len = ft_listlen(head, &min_pos);
+//	printf("111 ft_keep_sw: %d\n", ft_keep_swapping(head, data));
+//	printf("ft_loc_sort: %d\n", ft_check_local_sort(head, min_pos, min_pos + len));
+	printf("len: %d\tmin_pos: %d\n", len, min_pos);
+//	return ;
+//	while (len > 2 && ft_check_local_sort(dst_head, min_pos, min_pos + len)) //ft_keep_swapping(data->head, data)) //(len > 6)
+//	{
+		//printf("DOOHHH\n");
+		if (*dst_head)
+			(*dst_head)->pos *= -1;
+		ft_halfing_stack_rev(head, dst_head, min_pos, data);
+		len = ft_listlen(head, &min_pos);
+	//	printf("len: %d\n", len);
+//		printf("\n\n\twhile a:\n");
+//	ft_print_stack(data->head);
+//	printf("\twhile b:\n");
+//	ft_print_stack(data->b_head);
+//	}
+	//printf("DOOHHH\n");
 	printf("mosse: %d\n", data->ops);
 	printf("\n\n\tpost a:\n");
 	ft_print_stack(data->head);
-	
-	
-	ft_sort_five(head);
+	printf("\tpost b:\n");
+	ft_print_stack(data->b_head);
+//	exit(0);
+//return ;
+//	printf("ft_keep_sw: %d\n", ft_keep_swapping(head, data));
+//printf("qwasdasde\n");
+//	if (/*!ft_keep_swapping(data->head, data) && */(*data->head)->num != min_pos)
+//	{
+//		ft_put_lower_at_head(data->head, data, min_pos);
+//		printf("qwe\n");
+//	}
 }
-
-
 
 void	ft_sort_by_pos(t_data *data)
 {
-printf("\n\n\ta:\n");
+/*printf("\n\n\ta:\n");
 ft_print_stack(data->head);
 printf("\tb:\n");
 ft_print_stack(data->b_head);
-
-//printf("start mosse: %d\n", data->ops);
+*/
+//printf("ft_keep_sw: %d\n", ft_keep_swapping(data->head, data));
+//printf("min: %d\n", data->min);
+printf("start mosse: %d\n", data->ops);
 	// divido A finche non ho 2 o 3 num e li sorto!!
+	if (!ft_keep_swapping(data->head, data))
+	{
+		if ((*data->head)->num != data->min)
+		{
+			ft_put_lower_at_head(data->head, data, 1);
+			printf("\n\n\tpost post a:\n");
+			ft_print_stack(data->head);
+		}
+		return ;
+		
+	}
 	ft_start_halfing(data->head, data->b_head, data);
-	
+
+	while (*data->b_head)
+	{
+	//	printf("endind..head: %d\n", (*data->head)->pos);
+		ft_push_back(data);
+	//printf("endind..head: %d\n", (*data->head)->pos);
+		if ((*data->head)->pos == 1)
+			break ;
+//	(*data->head)->pos *= -1;
+
+		ft_halfing_back(data->b_head, data->head, data);
+	}
+
 //	ft_new_sort(data->head, data);
 //printf("end mosse: %d\n", data->ops);
 //printf("\n\n\tpost a:\n");
@@ -339,6 +612,8 @@ ft_print_stack(data->b_head);
 
 printf("\n\n\tpost post a:\n");
 ft_print_stack(data->head);
+printf("\n\n\tpost post b:\n");
+ft_print_stack(data->b_head);
 
 //exit(0);
 

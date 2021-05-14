@@ -61,7 +61,7 @@ void	ft_add_num(long int tot, t_list **head, t_data *data);
 
 void	ft_get_range(t_data *data);
 void	ft_push_swap(t_data *data);
-int ft_find_lower(t_list **head, t_data *data);
+int ft_find_lower(t_list **head, t_data *data, int min);
 int	ft_keep_swapping(t_list **head, t_data *data);
 
 int		ft_check_swap(t_list **head, t_data *data);
@@ -82,6 +82,7 @@ int	ft_bubble_sort(t_list **head, t_data *data);
 
 void	ft_empty_b(t_list **head, t_data *data);
 int	ft_third_try(t_data *data);
+void	ft_put_lower_at_head(t_list **head, t_data *data, int min);
 
 #endif
 

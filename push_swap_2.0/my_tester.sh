@@ -6,7 +6,7 @@ make re
 
 #ARG=$( cat test.txt)
 
-ARG=$( jot -r $1 -999 9999 )
+ARG=$( jot -r $1 -9999 999999 )
 
 echo $ARG
 
