@@ -107,8 +107,8 @@ void	ft_move_wrong(t_list **head, t_data *data)
 t_list	*ft_get_tail(t_list **head, t_list *tail)
 {
 	tail = *head;
-	printf("\n\n\tpost a:\n");
-	ft_print_stack(head);
+//	printf("\n\n\tpost a:\n");
+//	ft_print_stack(head);
 	while (tail->next) //&& printf("dooh.. \n"))
 		tail = tail->next;
 	return (tail);

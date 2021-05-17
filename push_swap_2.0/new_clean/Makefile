@@ -4,11 +4,12 @@ CFLAGS	=	-Wall -Wextra -Werror
 #SRCS1	=	ft_move_stack.c checker.c
 #SRCS2	=	ft_move_stack.c ft_try_swap.c push_swap.c
 OBJS1	=	ft_move_stack.o checker.o
-OBJS2	=	ft_move_stack.o ft_try_swap.o push_swap.o \
-			ft_complex_sort.o utils_new_sort.o ft_sort_pos.o
+OBJS2	=	ft_move_stack.o  push_swap.o utils_new_sort.o \
+			 ft_sort_pos.o utils_sort_pos.o halfing_from_a.o \
+			#ft_try_swap.o ft_complex_sort.o utils_new_sort.o
 
 
-all		:	$(OUT1) $(OUT2)
+all		:	$(OUT2) $(OUT1)
 
 $(OUT1)	:	$(OBJS1)
 	gcc $(CFLAGS) $^ -o $@
@@ -23,7 +24,7 @@ clean	:
 	rm -rf $(OBJS1) $(OBJS2) $(ARGV) test.txt
 
 fclean	:	clean
-	rm -rf $(OUT1) $(OUT2)
+	rm -rf $(OUT2) $(OUT1) 
 
 re		:	clean	fclean	all
 

@@ -47,6 +47,7 @@ typedef struct s_data
 //	t_list	*maxest;
 //	t_list	*start;
 	t_list	*tail;
+	t_list	*b_tail;
 	t_list		**backup;
 }				t_data;
 
@@ -83,6 +84,11 @@ int	ft_bubble_sort(t_list **head, t_data *data);
 void	ft_empty_b(t_list **head, t_data *data);
 int	ft_third_try(t_data *data);
 void	ft_put_lower_at_head(t_list **head, t_data *data, int min);
+
+void	ft_halfing_pushed(t_list **head, t_data *data);
+int		ft_listlen(t_list **head,int *min_pos);
+void	ft_what_next(t_data *data);
+void	ft_halfing_back(t_list **head, t_list **dst_head, t_data *data);
 
 #endif
 
