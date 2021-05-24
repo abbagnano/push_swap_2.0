@@ -12,6 +12,19 @@
 
 #include "libswap.h"
 
+void    ft_print_stack(t_list **head)
+{
+	t_list *stack;
+	
+	stack = *head;
+	 while (stack != NULL)
+	{
+		printf("=== %d\t\tp: %d\n", stack->num, stack->pos);
+	//	printf("===\t %d\n", stack->pos);
+		stack = stack->next;
+	}
+}
+
 void	ft_sort_pushed(t_list **dst_head, t_data *data, int med)
 {
 	data->b_tail = ft_get_tail(dst_head, data->b_tail);
@@ -76,6 +89,11 @@ void	ft_sort_by_pos(t_data *data)
 		return ;
 	}
 	ft_start_halfing(data->head, data->b_head, data);
+	printf("a:\n");
+	ft_print_stack(data->head);
+		printf("b:\n");
+	ft_print_stack(data->b_head);
+	exit(0);
 	ft_push_back(data);
 	return ;
 }

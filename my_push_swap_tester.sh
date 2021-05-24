@@ -18,11 +18,9 @@ ARG=$( jot -r $1 $MIN $MAX )
 
 #./push_swap $ARG  | ./checker $ARG
 
-
-
-./push_swap $ARG #| ./checker_Mac $ARG
-
 ./push_swap $ARG | wc -l
+
+./push_swap $ARG | ./checker_Mac $ARG
 
 #rm -rf a.out
 
