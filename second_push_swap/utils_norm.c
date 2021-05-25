@@ -10,7 +10,8 @@ void	ft_ss(t_data *data)
 {
 	ft_swap(data->head);
 	ft_swap(data->b_head);
-	ft_write("ss\n");
+	if (!data->write_flag)
+		ft_write("ss\n");
 	data->ops++;
 }
 

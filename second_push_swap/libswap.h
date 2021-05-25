@@ -18,6 +18,12 @@
 # include <unistd.h>
 # include <string.h>
 
+typedef struct s_read
+{
+	char			*line;
+	struct s_read	*next;
+}	t_read;
+
 typedef struct s_ops
 {
 	int		ra;
@@ -42,17 +48,19 @@ typedef struct s_data
 {
 	t_list	**head;
 	t_list	**b_head;
-	char	*txt;	
+	t_read	**to_do;
 	int		len;
 	int		min;
 	int		max;
 	int		ops;
+	int		write_flag;
 	t_list	*max_idx;
 }	t_data;
 
 /*	utils_push_swap.c	*/
 int		ft_strlen(char *str);
 void	ft_write(char *str);
+void	ft_free_read(t_read **head);
 void	ft_free_stack(t_list **head);
 void	ft_exit(char *str, t_data *data);
 
@@ -129,5 +137,22 @@ void	ft_up_to_five(t_data *data);
 int		ft_flagging_tot(int *tot_r, int tot_rr,
 			int tot_ra_rrb, int tot_rb_rra);
 void	ft_calc(t_data *data);
+
+/*	ft_read_ops.c	*/
+int		ft_check_buf(char *buf, int len);
+int		ft_buf_to_node(int len, int x, char *buf, t_read *new);
+void	ft_append_read(t_read *new, t_read **head);
+void	ft_buf_to_list(char *buf, t_data *data);
+void	ft_read_ops(t_data *data);
+
+/*	utils_read.c	*/
+int		ft_strchr(char c, char *s1);
+int		ft_strncmp(char *s1, char *s2, int len);
+int		ft_strcmp(char *s1, char *s2);
+
+/*	ft_make_ops.c	*/
+void	ft_check_sort(t_data *data);
+void	ft_check_op(char *line, int len, t_data *data);
+void	ft_make_ops(t_data *data);
 
 #endif

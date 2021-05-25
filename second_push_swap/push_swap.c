@@ -97,6 +97,7 @@ int	main(int ac, char **av)
 	data.b_head = (t_list **)malloc(sizeof(t_list *) * 1);
 	*data.head = NULL;
 	*data.b_head = NULL;
+	data.write_flag = 0;
 	ft_to_stack(av, ac, &data);
 	ft_get_range(&data);
 	ft_check_index(&data);
@@ -108,5 +109,5 @@ int	main(int ac, char **av)
 	else if (ft_keep_swapping(data.head, &data) && data.len <= 5)
 		ft_up_to_five(&data);
 	ft_put_lower_at_head(data.head, &data, 1);
-	ft_exit("\0", &data);
+	ft_exit("", &data);
 }

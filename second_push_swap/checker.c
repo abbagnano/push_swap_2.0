@@ -83,9 +83,14 @@ int	main(int ac, char **av)
 	}
 	data.head = (t_list **)malloc(sizeof(t_list *) * 1);
 	data.b_head = (t_list **)malloc(sizeof(t_list *) * 1);
+	data.to_do = (t_read **)malloc(sizeof(t_read *) * 1);
+	*data.to_do = NULL;
 	*data.head = NULL;
 	*data.b_head = NULL;
+	data.write_flag = 1;
 	ft_to_stack(av, ac, &data);
 	ft_read_ops(&data);
+	ft_make_ops(&data);
 	ft_check_sort(&data);
+	ft_exit("", &data);
 }
