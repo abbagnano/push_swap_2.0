@@ -6,7 +6,7 @@
 /*   By: fgradia <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 14:34:49 by fgradia           #+#    #+#             */
-/*   Updated: 2021/05/18 14:34:51 by fgradia          ###   ########.fr       */
+/*   Updated: 2021/05/25 18:00:53 by fgradia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,16 @@ int	main(int ac, char **av)
 {
 	t_data	data;
 
-	if (ac == 1)
-	{
-		ft_write("Error: invalid args!\n");
-		return (0);
-	}
 	data.head = (t_list **)malloc(sizeof(t_list *) * 1);
 	data.b_head = (t_list **)malloc(sizeof(t_list *) * 1);
 	*data.head = NULL;
 	*data.b_head = NULL;
 	data.write_flag = 0;
+	if (ac == 1)
+		ft_exit("Error: invalid args!\n", &data);
 	ft_to_stack(av, ac, &data);
+	if (!*data.head)
+		ft_exit("Error: wrong args!\n", &data);
 	ft_get_range(&data);
 	ft_check_index(&data);
 	if (ft_keep_swapping(data.head, &data) && data.len > 5)

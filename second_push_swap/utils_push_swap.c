@@ -6,7 +6,7 @@
 /*   By: fgradia <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 14:35:46 by fgradia           #+#    #+#             */
-/*   Updated: 2021/05/18 14:35:47 by fgradia          ###   ########.fr       */
+/*   Updated: 2021/05/25 18:01:36 by fgradia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_free_read(t_read **head)
 	{
 		tmp = *head;
 		*head = (*head)->next;
+		free(tmp->line);
 		free(tmp);
 	}
 }

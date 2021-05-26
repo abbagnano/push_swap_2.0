@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fgradia <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/25 17:59:16 by fgradia           #+#    #+#             */
+/*   Updated: 2021/05/25 17:59:21 by fgradia          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libswap.h"
 
 void	ft_check_num(long int tot, t_list **head, t_data *data)
@@ -89,6 +101,10 @@ int	main(int ac, char **av)
 	*data.b_head = NULL;
 	data.write_flag = 1;
 	ft_to_stack(av, ac, &data);
+	if (!*data.head)
+		ft_exit("Error: wrong args!\n", &data);
+	if (!(*data.head)->next)
+		ft_exit("", &data);
 	ft_read_ops(&data);
 	ft_make_ops(&data);
 	ft_check_sort(&data);

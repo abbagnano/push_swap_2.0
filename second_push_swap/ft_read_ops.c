@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_read_ops.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fgradia <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/25 18:00:16 by fgradia           #+#    #+#             */
+/*   Updated: 2021/05/25 18:00:17 by fgradia          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libswap.h"
 
 int	ft_check_buf(char *buf, int len)
@@ -69,7 +81,6 @@ void	ft_buf_to_list(char *buf, t_data *data)
 	t_read	*new;
 
 	x = 0;
-	len = 0;
 	while (buf && buf[x])
 	{
 		len = ft_strchr('\n', buf + x);
@@ -77,13 +88,16 @@ void	ft_buf_to_list(char *buf, t_data *data)
 			break ;
 		else if (len > 3 || len < 2)
 		{
-			printf("buf: -%s-\tlen: %d\n", buf +x, len);
+			free(buf);
 			ft_exit("Error: wrong op!\n", data);
 		}
 		new = (t_read *)malloc(sizeof(t_read) * 1);
 		x = ft_buf_to_node(len, x, buf, new);
 		if (x < 0)
+		{
+			free(buf);
 			ft_exit("Error: wrong op2!\n", data);
+		}
 		ft_append_read(new, data->to_do);
 		new = new->next;
 	}
@@ -105,4 +119,5 @@ void	ft_read_ops(t_data *data)
 			return ;
 		ft_buf_to_list(buf, data);
 	}
+	free(buf);
 }
