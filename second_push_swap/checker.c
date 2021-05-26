@@ -89,10 +89,7 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	if (ac == 1)
-	{
-		ft_write("Error: invalid args!\n");
 		return (0);
-	}
 	data.head = (t_list **)malloc(sizeof(t_list *) * 1);
 	data.b_head = (t_list **)malloc(sizeof(t_list *) * 1);
 	data.to_do = (t_read **)malloc(sizeof(t_read *) * 1);
@@ -102,7 +99,7 @@ int	main(int ac, char **av)
 	data.write_flag = 1;
 	ft_to_stack(av, ac, &data);
 	if (!*data.head)
-		ft_exit("Error: wrong args!\n", &data);
+		ft_exit("", &data);
 	if (!(*data.head)->next)
 		ft_exit("", &data);
 	ft_read_ops(&data);
